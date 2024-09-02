@@ -12,4 +12,5 @@ public interface TransactionControllerInterface {
     Transaction transferMoney(@RequestParam int senderAccountId, @RequestParam int receiverAccountId, @RequestParam int amountTransfered);
     List<Transaction> allTransactionsGivenAccountId(@PathVariable int accountId);
     Transaction deleteTransactionGivenTransactionId(@PathVariable int transactionId);
+    Transaction getTransactionByTransactionId(@PathVariable int transactionId);
 }
