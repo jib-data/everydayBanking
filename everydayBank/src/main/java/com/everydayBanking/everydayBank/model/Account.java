@@ -1,14 +1,15 @@
 package com.everydayBanking.everydayBank.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "customer_account")
 public class Account {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int accountId;
     String accountNumber;
     Double accountBalance;

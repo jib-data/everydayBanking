@@ -2,6 +2,8 @@ package com.everydayBanking.everydayBank.model;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.time.LocalDateTime;
@@ -10,19 +12,34 @@ import java.util.Objects;
 @Entity
 public class Customer {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int customer_id;
     String firstName;
     String lastname;
     String username;
     String password;
+    String passwordCopy;
     String email;
     String address;
+    String phone;
     LocalDateTime creation_date;
     LocalDateTime deletion_date;
 
     public Customer() {
     }
 
+    public Customer(String firstName, String lastName, String username, String password, String passwordCopy, String email, String phone, String address, LocalDateTime creation_date, LocalDateTime deletion_date) {
+        this.firstName = firstName;
+        this.lastname = lastName;
+        this.username = username;
+        this.password = password;
+        this.passwordCopy = passwordCopy;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.creation_date = creation_date;
+        this.deletion_date = deletion_date;
+    }
     public Customer(String firstName, String lastName, String username, String password, String email, String address, LocalDateTime creation_date, LocalDateTime deletion_date) {
         this.firstName = firstName;
         this.lastname = lastName;
@@ -118,6 +135,28 @@ public class Customer {
     public void setDeletion_date(LocalDateTime deletion_date) {
         this.deletion_date = deletion_date;
     }
+    public String getPasswordCopy() {
+        return passwordCopy;
+    }
+
+    public void setPasswordCopy(String passwordCopy) {
+        this.passwordCopy = passwordCopy;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -146,4 +185,6 @@ public class Customer {
                 ", deletion_date=" + deletion_date +
                 '}';
     }
+
+
 }
