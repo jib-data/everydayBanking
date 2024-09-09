@@ -13,10 +13,10 @@ import java.util.Objects;
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int transactionId;
-    String transactionType;
-    String amount;
-    LocalDateTime transactionDate;
+    private int transactionId;
+    private String transactionType;
+    private String amount;
+    private LocalDateTime transactionDate;
     int accountId;
 
     public Transaction() {

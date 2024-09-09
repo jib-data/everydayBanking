@@ -13,17 +13,17 @@ import java.util.Objects;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int customer_id;
-    String firstName;
-    String lastname;
-    String username;
-    String password;
-    String passwordCopy;
-    String email;
-    String address;
-    String phone;
-    LocalDateTime creation_date;
-    LocalDateTime deletion_date;
+    private int customer_id;
+    private String firstName;
+    private String lastname;
+    private String username;
+    private String password;
+    private String passwordCopy;
+    private String email;
+    private String address;
+    private String phone;
+    private LocalDateTime creation_date;
+    private LocalDateTime deletion_date;
 
     public Customer() {
     }

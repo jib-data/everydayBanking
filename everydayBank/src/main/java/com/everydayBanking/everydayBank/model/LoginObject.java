@@ -1,8 +1,8 @@
 package com.everydayBanking.everydayBank.model;
 
 public class LoginObject {
-    String username;
-    String password;
+    private String username;
+    private String password;
 
     public LoginObject() {
     }

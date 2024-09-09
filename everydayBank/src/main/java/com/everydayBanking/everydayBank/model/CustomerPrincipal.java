@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CustomerPrincipal implements UserDetails {
 
-    Customer customer;
+    private Customer customer;
 
     public CustomerPrincipal(Customer customer) {
         this.customer = customer;

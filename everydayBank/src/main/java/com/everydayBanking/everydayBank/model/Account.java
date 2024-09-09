@@ -11,10 +11,10 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int accountId;
-    String accountNumber;
-    Double accountBalance;
-    String accountType;
-    LocalDateTime creation;
+    private String accountNumber;
+    private Double accountBalance;
+    private String accountType;
+    private LocalDateTime creation;
     int customerId;
 
     public Account() {

@@ -13,14 +13,14 @@ import java.util.Objects;
 public class DeletedAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int accountId;
-    String username;
-    String firstname;
-    String lastname;
-    String accountNumber;
-    String accountType;
-    LocalDateTime creationDate;
-    LocalDateTime deletionDate;
+    private int accountId;
+    private String username;
+    private String firstname;
+    private String lastname;
+    private String accountNumber;
+    private String accountType;
+    private LocalDateTime creationDate;
+    private LocalDateTime deletionDate;
 
     public DeletedAccount() {
     }
