@@ -10,6 +10,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,12 +18,21 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfiguration{
+public class SecurityConfig {
     CustomerUserDetailsService customerUserDetailsService;
-    @Bean
-    public SecurityFilterChain securityChain(HttpSecurity http){
 
-        return null;
+    public SecurityConfig(CustomerUserDetailsService customerUserDetailsService) {
+        this.customerUserDetailsService = customerUserDetailsService;
+    }
+
+    @Bean
+    public SecurityFilterChain securityChain(HttpSecurity http) throws Exception {
+        http.csrf(customizer -> customizer.disable())
+                .authorizeHttpRequests(request -> request.requestMatchers("**/login").permitAll()
+                        .requestMatchers("**/signup").permitAll()
+                        .anyRequest().authenticated())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        return http.build();
     }
     @Bean
     public AuthenticationProvider authenticationProvider(){
@@ -32,8 +42,5 @@ public class SecurityConfig extends WebSecurityConfiguration{
 
         return authProvider;
     }
-//    @Bean
-//    public AuthenticationManager authenticationManager(){
-//        return null;
-//    }
+
 }
