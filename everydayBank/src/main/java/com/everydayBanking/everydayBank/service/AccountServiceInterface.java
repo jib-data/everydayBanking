@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 public interface AccountServiceInterface {
-    Account createAccount(@RequestBody Customer customer);
-    Account getAccountById(@PathVariable int accountId);
-    List<Account> getCustomerAccountById(@PathVariable int customerId);
-    Account deleteAccountById(@PathVariable int accountId);
-    Account updateAccountByAccountId(@PathVariable int accountId);
+    Account createAccount(Customer customer);
+    Account getAccountById(int accountId);
+    List<Account> getCustomerAccountsById(int customerId);
+    Account deleteAccountById(int accountId);
+    Account updateAccountByAccountId(int accountId);
 }

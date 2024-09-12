@@ -29,4 +29,13 @@ public class CustomerPrincipal implements UserDetails {
     public String getUsername() {
         return customer.getUsername();
     }
+
+    public String getFirstName(){ return customer.getFirstName();}
+
+    public String getLastName(){
+        return customer.getLastName();
+    }
+    public int getCustomerId(){
+        return customer.getCustomer_id();
+    }
 }

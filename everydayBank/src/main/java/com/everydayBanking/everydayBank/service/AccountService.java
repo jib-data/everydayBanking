@@ -23,27 +23,28 @@ public class AccountService implements AccountServiceInterface {
     }
 
     @Override
-    public Account createAccount(@RequestBody Customer customer) {
+    public Account createAccount(Customer customer) {
         return null;
     }
 
     @Override
-    public Account getAccountById(@PathVariable int accountId) {
+    public Account getAccountById(int accountId) {
         return null;
     }
 
     @Override
-    public List<Account> getCustomerAccountById(@PathVariable int customerId) {
-        return List.of();
-    }
+    public List<Account> getCustomerAccountsById(int customerId) {
 
-    @Override
-    public Account deleteAccountById(@PathVariable int accountId) {
         return null;
     }
 
     @Override
-    public Account updateAccountByAccountId(@PathVariable int accountId) {
+    public Account deleteAccountById(int accountId) {
+        return null;
+    }
+
+    @Override
+    public Account updateAccountByAccountId(int accountId) {
         return null;
     }
 }

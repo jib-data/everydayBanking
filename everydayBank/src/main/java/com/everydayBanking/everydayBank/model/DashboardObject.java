@@ -18,4 +18,41 @@ public class DashboardObject {
         this.customerAccounts = customerAccounts;
     }
 
+    public DashboardObject(String firstName, String lastName, List<Account> customerAccounts) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.customerAccounts = customerAccounts;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getJwtToken() {
+        return jwtToken;
+    }
+
+    public void setJwtToken(String jwtToken) {
+        this.jwtToken = jwtToken;
+    }
+
+    public List<Account> getCustomerAccounts() {
+        return customerAccounts;
+    }
+
+    public void setCustomerAccounts(List<Account> customerAccounts) {
+        this.customerAccounts = customerAccounts;
+    }
 }
