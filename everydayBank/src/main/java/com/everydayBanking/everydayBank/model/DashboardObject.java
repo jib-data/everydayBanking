@@ -16,7 +16,6 @@ public class DashboardObject {
         this.lastName = lastName;
         this.jwtToken = jwtToken;
         this.customerAccounts = customerAccounts;
-
     }
 
 }
