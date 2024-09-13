@@ -6,15 +6,17 @@ public class DashboardObject {
     private String firstName;
     private String lastName;
     private String jwtToken;
+    private Account account;
     private List<Account> customerAccounts;
 
     public DashboardObject() {
     }
 
-    public DashboardObject(String firstName, String lastName, String jwtToken, List<Account> customerAccounts) {
+    public DashboardObject(String firstName, String lastName, String jwtToken, Account account, List<Account> customerAccounts) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.jwtToken = jwtToken;
+        this.account = account;
         this.customerAccounts = customerAccounts;
     }
 
@@ -22,6 +24,11 @@ public class DashboardObject {
         this.firstName = firstName;
         this.lastName = lastName;
         this.customerAccounts = customerAccounts;
+    }
+    public DashboardObject(String firstName, String lastName, Account account) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.account = account;
     }
 
     public String getFirstName() {
@@ -54,5 +61,13 @@ public class DashboardObject {
 
     public void setCustomerAccounts(List<Account> customerAccounts) {
         this.customerAccounts = customerAccounts;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

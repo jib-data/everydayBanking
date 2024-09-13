@@ -31,8 +31,8 @@ public class JwtUtils {
 //    generateTokenFromUsername
 //    generateUsernameFromJwtToken
 //    verifyJwtToken
-    public String generateJwtToken(UserDetails userDetails ){
-        String username = userDetails.getUsername();
+    public String generateJwtToken(String username ){
+
 //        Create HashMap to hold claims;
         Map<String, Object> claims = new HashMap<>();
 //        Using jwt builder

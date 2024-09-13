@@ -1,9 +1,6 @@
 package com.everydayBanking.everydayBank.service;
 
-import com.everydayBanking.everydayBank.model.Customer;
-import com.everydayBanking.everydayBank.model.CustomerPrincipal;
-import com.everydayBanking.everydayBank.model.DashboardObject;
-import com.everydayBanking.everydayBank.model.LoginObject;
+import com.everydayBanking.everydayBank.model.*;
 import com.everydayBanking.everydayBank.repository.CustomerRepository;
 import com.everydayBanking.everydayBank.securityconfig.JwtUtils;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,25 +27,19 @@ public class CustomerService implements CustomerServiceInterface{
         this.customerUserDetailsService = customerUserDetailsService;
     }
     @Override
-    public Customer signUp(@RequestBody Customer newCustomer) {
+    public DashboardObject signUp( Customer newCustomer) {
         Customer existingCustomer = customerRepository.findByUsername(newCustomer.getUsername());
         if (existingCustomer == null){
-            if(newCustomer.getPassword().equals(newCustomer.getPasswordCopy())){
-//                User does not already exist so we...
-//                Create a new customer
-                Customer createdCustomer = new Customer();
-//                instantiate a password encryption object
-                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-                createdCustomer.setUsername(newCustomer.getUsername());
-//                Encrypt password
-                createdCustomer.setPassword(passwordEncoder.encode(newCustomer.getPassword()));
-                createdCustomer.setFirstName(newCustomer.getFirstName());
-                createdCustomer.setLastname(newCustomer.getLastname());
-                createdCustomer.setEmail(newCustomer.getEmail());
-                createdCustomer.setPhone(newCustomer.getPhone());
-                createdCustomer.setCreation_date(newCustomer.getCreation_date());
+            if(!newCustomer.getPassword().equals(newCustomer.getPasswordCopy())){
 
-                return customerRepository.save(createdCustomer);
+                Customer createdCustomer = createCustomer(newCustomer);
+                Customer createdCustomerSaved = customerRepository.save(createdCustomer);
+                Account createdAccount = accountService.createAccount(createdCustomerSaved);
+                String token = jwtUtils.generateJwtToken(createdCustomerSaved.getUsername());
+                DashboardObject dashboardObject = setDashBoardDetails(createdCustomerSaved, token, createdAccount);
+
+
+                return null;
 
             } else {
 //                throw exception for password doesn't match
@@ -71,23 +62,43 @@ public class CustomerService implements CustomerServiceInterface{
             SecurityContextHolder.getContext().setAuthentication(authentication);
             CustomerPrincipal customerDetails = (CustomerPrincipal) authentication.getPrincipal();
 
-            String token = jwtUtils.generateJwtToken(customerDetails);
+            String token = jwtUtils.generateJwtToken(customerDetails.getUsername());
             DashboardObject dashboardObject = new DashboardObject();
             dashboardObject.setJwtToken(token);
             dashboardObject.setFirstName(customerDetails.getFirstName());
             dashboardObject.setLastName(customerDetails.getLastName());
             dashboardObject.setCustomerAccounts(accountService.getCustomerAccountsById(customerDetails.getCustomerId()));
+
+            return dashboardObject;
         } catch (AuthenticationException e){
-            e.getMessage();
+            System.out.println(e.getMessage());
+            return null;
         }
 
-//      Set security context
-//       Grab user detail
-//       Generate token
-//       create an instance of the response object
-//        Return it.
 
+    }
+//    Helper method
+    public Customer createCustomer(Customer newCustomer){
+        Customer createdCustomer = new Customer();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        createdCustomer.setUsername(newCustomer.getUsername());
+        createdCustomer.setPassword(passwordEncoder.encode(newCustomer.getPassword()));
+        createdCustomer.setFirstName(newCustomer.getFirstName());
+        createdCustomer.setLastname(newCustomer.getLastname());
+        createdCustomer.setEmail(newCustomer.getEmail());
+        createdCustomer.setPhone(newCustomer.getPhone());
+        createdCustomer.setCreation_date(newCustomer.getCreation_date());
 
-        return null;
+        return createdCustomer;
+    }
+
+    public DashboardObject setDashBoardDetails(Customer createdCustomerSaved, String token, Account createdAccount){
+        DashboardObject dashboardObject = new DashboardObject();
+
+        dashboardObject.setFirstName(createdCustomerSaved.getFirstName());
+        dashboardObject.setLastName(createdCustomerSaved.getLastName());
+        dashboardObject.setJwtToken(token);
+        dashboardObject.setAccount(createdAccount);
+        return dashboardObject;
     }
 }
