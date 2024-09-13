@@ -32,7 +32,6 @@ public class JwtUtils {
 //    generateUsernameFromJwtToken
 //    verifyJwtToken
     public String generateJwtToken(String username ){
-
 //        Create HashMap to hold claims;
         Map<String, Object> claims = new HashMap<>();
 //        Using jwt builder

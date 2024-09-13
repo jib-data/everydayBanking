@@ -18,7 +18,6 @@ public class Customer {
     private String lastname;
     private String username;
     private String password;
-    private String passwordCopy;
     private String email;
     private String address;
     private String phone;
@@ -33,7 +32,6 @@ public class Customer {
         this.lastname = lastName;
         this.username = username;
         this.password = password;
-        this.passwordCopy = passwordCopy;
         this.email = email;
         this.phone = phone;
         this.address = address;
@@ -135,13 +133,7 @@ public class Customer {
     public void setDeletion_date(LocalDateTime deletion_date) {
         this.deletion_date = deletion_date;
     }
-    public String getPasswordCopy() {
-        return passwordCopy;
-    }
 
-    public void setPasswordCopy(String passwordCopy) {
-        this.passwordCopy = passwordCopy;
-    }
 
     public String getLastname() {
         return lastname;
