@@ -1,29 +1,33 @@
 package com.everydayBanking.everydayBank.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-
+@Component
 @Entity
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int customer_id;
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "last_name")
     private String lastname;
+    @Column(name = "username")
     private String username;
+    @Column(name = "password")
     private String password;
+    @Column(name = "email")
     private String email;
+    @Column(name = "address")
     private String address;
+    @Column(name = "phone_number")
     private String phone;
     private LocalDateTime creation_date;
     private LocalDateTime deletion_date;
-
     public Customer() {
     }
 

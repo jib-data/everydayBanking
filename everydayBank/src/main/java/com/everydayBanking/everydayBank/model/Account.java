@@ -2,6 +2,7 @@ package com.everydayBanking.everydayBank.model;
 
 
 import jakarta.persistence.*;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

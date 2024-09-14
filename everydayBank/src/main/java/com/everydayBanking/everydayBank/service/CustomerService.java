@@ -10,10 +10,12 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
+@Service
 public class CustomerService implements CustomerServiceInterface{
     CustomerRepository customerRepository;
     AuthenticationManager authManager;
@@ -65,6 +67,7 @@ public class CustomerService implements CustomerServiceInterface{
     public Customer createCustomer(Customer newUser){
         Customer createdCustomer = new Customer();
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        System.out.println(newUser.getPassword());
         createdCustomer.setUsername(newUser.getUsername());
         createdCustomer.setPassword(passwordEncoder.encode(newUser.getPassword()));
         createdCustomer.setFirstName(newUser.getFirstName());
