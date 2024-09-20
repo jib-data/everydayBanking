@@ -67,7 +67,6 @@ public class Customer {
 
     }
 
-
     public int getCustomer_id() {
         return customer_id;
     }
@@ -148,6 +147,10 @@ public class Customer {
         this.phone = phone;
     }
 
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -174,6 +177,5 @@ public class Customer {
                 ", creation_date=" + creation_date +
                 '}';
     }
-
 
 }

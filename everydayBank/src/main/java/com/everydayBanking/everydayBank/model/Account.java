@@ -1,10 +1,12 @@
 package com.everydayBanking.everydayBank.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,19 +19,18 @@ public class Account {
     private Double accountBalance;
     private String accountType;
     private LocalDateTime creation;
-    public Customer getCustomer() {
-        return customer;
-    }
+    @JsonIgnore
     @ManyToOne(optional = false)
     @JoinColumn(name="customer_id", nullable = false)
     Customer customer;
 
-
+    @OneToMany(mappedBy = "account")
+    private List<Transaction> transactions;
 
     public Account() {
     }
 
-    public Account(String accountNumber, Double accountBalance, String accountType, LocalDateTime creation, int customerId) {
+    public Account(String accountNumber, Double accountBalance, String accountType, LocalDateTime creation) {
         this.accountNumber = accountNumber;
         this.accountBalance = accountBalance;
         this.accountType = accountType;
@@ -37,7 +38,7 @@ public class Account {
 
     }
 
-    public Account(int accountId, String accountNumber, Double accountBalance, String accountType, LocalDateTime creation, int customerId) {
+    public Account(int accountId, String accountNumber, Double accountBalance, String accountType, LocalDateTime creation) {
         this.accountId = accountId;
         this.accountNumber = accountNumber;
         this.accountBalance = accountBalance;
@@ -45,7 +46,6 @@ public class Account {
         this.creation = creation;
 
     }
-
 
     public int getAccountId() {
         return accountId;
@@ -53,6 +53,10 @@ public class Account {
 
     public void setAccountId(int accountId) {
         this.accountId = accountId;
+    }
+
+    public Customer getCustomer() {
+        return customer;
     }
 
     public String getAccountNumber() {
@@ -87,8 +91,9 @@ public class Account {
         this.creation = creation;
     }
 
-
-
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
 
 
     @Override
