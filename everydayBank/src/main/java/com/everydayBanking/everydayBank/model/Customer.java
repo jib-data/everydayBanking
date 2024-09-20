@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 @Component
 @Entity
@@ -27,7 +28,8 @@ public class Customer {
     @Column(name = "phone_number")
     private String phone;
     private LocalDateTime creation_date;
-    private LocalDateTime deletion_date;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Account> accounts;
     public Customer() {
     }
 
@@ -40,7 +42,7 @@ public class Customer {
         this.phone = phone;
         this.address = address;
         this.creation_date = creation_date;
-        this.deletion_date = deletion_date;
+
     }
     public Customer(String firstName, String lastName, String username, String password, String email, String address, LocalDateTime creation_date, LocalDateTime deletion_date) {
         this.firstName = firstName;
@@ -50,7 +52,7 @@ public class Customer {
         this.email = email;
         this.address = address;
         this.creation_date = creation_date;
-        this.deletion_date = deletion_date;
+
     }
 
     public Customer(int customer_id, String firstName, String lastName, String username, String password, String email, String address, LocalDateTime creation_date, LocalDateTime deletion_date) {
@@ -62,7 +64,7 @@ public class Customer {
         this.email = email;
         this.address = address;
         this.creation_date = creation_date;
-        this.deletion_date = deletion_date;
+
     }
 
 
@@ -130,14 +132,6 @@ public class Customer {
         this.creation_date = creation_date;
     }
 
-    public LocalDateTime getDeletion_date() {
-        return deletion_date;
-    }
-
-    public void setDeletion_date(LocalDateTime deletion_date) {
-        this.deletion_date = deletion_date;
-    }
-
 
     public String getLastname() {
         return lastname;
@@ -159,12 +153,12 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return customer_id == customer.customer_id && Objects.equals(firstName, customer.firstName) && Objects.equals(lastname, customer.lastname) && Objects.equals(username, customer.username) && Objects.equals(password, customer.password) && Objects.equals(email, customer.email) && Objects.equals(address, customer.address) && Objects.equals(creation_date, customer.creation_date) && Objects.equals(deletion_date, customer.deletion_date);
+        return customer_id == customer.customer_id && Objects.equals(firstName, customer.firstName) && Objects.equals(lastname, customer.lastname) && Objects.equals(username, customer.username) && Objects.equals(password, customer.password) && Objects.equals(email, customer.email) && Objects.equals(address, customer.address) && Objects.equals(creation_date, customer.creation_date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customer_id, firstName, lastname, username, password, email, address, creation_date, deletion_date);
+        return Objects.hash(customer_id, firstName, lastname, username, password, email, address, creation_date);
     }
 
     @Override
@@ -178,7 +172,6 @@ public class Customer {
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
                 ", creation_date=" + creation_date +
-                ", deletion_date=" + deletion_date +
                 '}';
     }
 

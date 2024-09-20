@@ -34,8 +34,8 @@ public class EverydayBankApplication {
 //    "deletion_date": "2024-09-13T14:28:15"
 //
 //}
-		DashboardObject dashboardObject= customerController.signUpCustomer(newUser);
-		System.out.println(dashboardObject);
+//		DashboardObject dashboardObject= customerController.signUpCustomer(newUser);
+//		System.out.println(dashboardObject);
 	}
 
 }

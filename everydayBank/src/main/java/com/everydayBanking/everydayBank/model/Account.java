@@ -17,7 +17,14 @@ public class Account {
     private Double accountBalance;
     private String accountType;
     private LocalDateTime creation;
-    int customerId;
+    public Customer getCustomer() {
+        return customer;
+    }
+    @ManyToOne(optional = false)
+    @JoinColumn(name="customer_id", nullable = false)
+    Customer customer;
+
+
 
     public Account() {
     }
@@ -27,7 +34,7 @@ public class Account {
         this.accountBalance = accountBalance;
         this.accountType = accountType;
         this.creation = creation;
-        this.customerId = customerId;
+
     }
 
     public Account(int accountId, String accountNumber, Double accountBalance, String accountType, LocalDateTime creation, int customerId) {
@@ -36,7 +43,7 @@ public class Account {
         this.accountBalance = accountBalance;
         this.accountType = accountType;
         this.creation = creation;
-        this.customerId = customerId;
+
     }
 
 
@@ -80,25 +87,21 @@ public class Account {
         this.creation = creation;
     }
 
-    public int getCustomerId() {
-        return customerId;
-    }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
+
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return accountId == account.accountId && customerId == account.customerId && Objects.equals(accountNumber, account.accountNumber) && Objects.equals(accountBalance, account.accountBalance) && Objects.equals(accountType, account.accountType) && Objects.equals(creation, account.creation);
+        return accountId == account.accountId && Objects.equals(accountNumber, account.accountNumber) && Objects.equals(accountBalance, account.accountBalance) && Objects.equals(accountType, account.accountType) && Objects.equals(creation, account.creation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountId, accountNumber, accountBalance, accountType, creation, customerId);
+        return Objects.hash(accountId, accountNumber, accountBalance, accountType, creation);
     }
 
     @Override
@@ -109,7 +112,6 @@ public class Account {
                 ", accountBalance=" + accountBalance +
                 ", accountType='" + accountType + '\'' +
                 ", creation=" + creation +
-                ", customerId=" + customerId +
                 '}';
     }
 }
