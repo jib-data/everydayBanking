@@ -32,15 +32,15 @@ public class CustomerService implements CustomerServiceInterface{
     }
 
     @Override
-    public DashboardObject signUp( Customer newUser){
+    public Customer signUp( Customer newUser){
         Customer existingCustomer = customerRepository.findByUsername(newUser.getUsername());
         if (existingCustomer == null){
             Customer createdCustomer = createCustomer(newUser);
             Customer createdCustomerSaved = customerRepository.save(createdCustomer);
             Account createdAccount = accountService.createAccount(createdCustomerSaved);
-            String token = jwtUtils.generateJwtToken(createdCustomerSaved.getUsername());
-            DashboardObject dashboardObject = setDashBoardDetails(createdCustomerSaved, token, createdAccount);
-            return dashboardObject;
+//            String token = jwtUtils.generateJwtToken(createdCustomerSaved.getUsername());
+//            DashboardObject dashboardObject = setDashBoardDetails(createdCustomerSaved, token);
+            return createdCustomerSaved;
         } else {
             return null;
         }
@@ -55,8 +55,8 @@ public class CustomerService implements CustomerServiceInterface{
             SecurityContextHolder.getContext().setAuthentication(authentication);
             CustomerPrincipal customerDetails = (CustomerPrincipal) authentication.getPrincipal();
             String token = jwtUtils.generateJwtToken(customerDetails.getUsername());
-            List<Account> accounts = accountService.getCustomerAccountsById(customerDetails.getCustomerId());
-            DashboardObject dashboardObject = setDashBoardDetails(customerDetails, token, accounts);
+//          List<Account> accounts = accountService.getCustomerAccountsById(customerDetails.getCustomerId());
+            DashboardObject dashboardObject = setDashBoardDetails(customerDetails, token);
             return dashboardObject;
         } catch (AuthenticationException e){
             System.out.println(e.getMessage());
@@ -78,21 +78,14 @@ public class CustomerService implements CustomerServiceInterface{
         return createdCustomer;
     }
 
-    public DashboardObject setDashBoardDetails(Customer createdCustomerSaved, String token, Account createdAccount){
-        DashboardObject dashboardObject = new DashboardObject();
-        dashboardObject.setFirstName(createdCustomerSaved.getFirstName());
-        dashboardObject.setLastName(createdCustomerSaved.getLastName());
-        dashboardObject.setJwtToken(token);
-        dashboardObject.setAccount(createdAccount);
-        return dashboardObject;
-    }
 
-    public DashboardObject setDashBoardDetails(CustomerPrincipal createdCustomerSaved, String token, List <Account> accounts){
+
+    public DashboardObject setDashBoardDetails(CustomerPrincipal createdCustomerSaved, String token){
         DashboardObject dashboardObject = new DashboardObject();
         dashboardObject.setFirstName(createdCustomerSaved.getFirstName());
         dashboardObject.setLastName(createdCustomerSaved.getLastName());
         dashboardObject.setJwtToken(token);
-        dashboardObject.setCustomerAccounts(accounts);
+        dashboardObject.setCustomerAccounts(createdCustomerSaved.getCustomerAccounts());
         return dashboardObject;
     }
 }

@@ -24,11 +24,11 @@ public class CustomerController implements CustomerControllerInterface{
     }
     @PostMapping("/signup")
     @Override
-    public DashboardObject  signUpCustomer(@RequestBody Customer newCustomer) {
+    public Customer  signUpCustomer(@RequestBody Customer newCustomer) {
 //        System.out.println(newCustomer);
-        DashboardObject dashboardObject = customerService.signUp(newCustomer);
-         if (dashboardObject != null){
-             return dashboardObject;
+        Customer customer = customerService.signUp(newCustomer);
+         if (customer != null){
+             return customer;
          } else {
             return null;
          }
@@ -36,7 +36,7 @@ public class CustomerController implements CustomerControllerInterface{
     }
 
     @Override
-    public DashboardObject loginCustomer(LoginObject loginObject) {
+    public Customer loginCustomer(LoginObject loginObject) {
         return null;
     }
 }

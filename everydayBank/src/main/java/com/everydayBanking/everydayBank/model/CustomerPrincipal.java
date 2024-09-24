@@ -1,6 +1,7 @@
 package com.everydayBanking.everydayBank.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -35,6 +36,10 @@ public class CustomerPrincipal implements UserDetails {
     public String getLastName(){
         return customer.getLastName();
     }
+    public List<Account> getCustomerAccounts(){
+        return customer.getAccounts();
+    }
+    @JsonIgnore
     public int getCustomerId(){
         return customer.getCustomer_id();
     }

@@ -6,6 +6,6 @@ import com.everydayBanking.everydayBank.model.LoginObject;
 import org.springframework.http.ResponseEntity;
 
 public interface CustomerControllerInterface {
-    DashboardObject signUpCustomer(Customer newCustomer);
-    DashboardObject loginCustomer(LoginObject loginObject);
+    Customer signUpCustomer(Customer newCustomer);
+    Customer loginCustomer(LoginObject loginObject);
 }
