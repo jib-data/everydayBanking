@@ -151,6 +151,10 @@ public class Customer {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+    public void addAccounts(Account account){
+        account.setCustomer(this);
+        this.accounts.add(account);
+    }
 
     public List<Account> getAccounts() {
         return accounts;

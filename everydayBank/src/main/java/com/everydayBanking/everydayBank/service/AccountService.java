@@ -33,13 +33,13 @@ public class AccountService implements AccountServiceInterface {
     @Override
     public Account createAccount(Customer customer) {
         String accountNumber = createAccountNumber();
-        Account newaccount = new Account();
-        newaccount.setCustomer(customer);
-        newaccount.setAccountNumber(accountNumber);
-        newaccount.setAccountBalance(0.0);
-        newaccount.setCreation(LocalDateTime.now());
-        Account createdAccount = accountRepository.save(newaccount);
-        return createdAccount;
+        Account newAccount = new Account();
+//        newAccount.setCustomer(customer);
+        newAccount.setAccountNumber(accountNumber);
+        newAccount.setAccountBalance(0.0);
+        newAccount.setCreation(LocalDateTime.now());
+        customer.addAccounts(newAccount);
+        return newAccount;
     }
 
     @Override

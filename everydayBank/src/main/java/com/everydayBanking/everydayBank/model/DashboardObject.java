@@ -51,4 +51,14 @@ public class DashboardObject {
     public void setCustomerAccounts(List<Account> customerAccounts) {
         this.customerAccounts = customerAccounts;
     }
+
+    @Override
+    public String toString() {
+        return "DashboardObject{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", jwtToken='" + jwtToken + '\'' +
+                ", customerAccounts=" + customerAccounts +
+                '}';
+    }
 }

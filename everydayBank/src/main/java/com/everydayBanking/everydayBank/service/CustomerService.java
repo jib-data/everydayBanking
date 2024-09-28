@@ -77,18 +77,19 @@ public class CustomerService implements CustomerServiceInterface{
         createdCustomer.setLastname(newUser.getLastname());
         createdCustomer.setEmail(newUser.getEmail());
         createdCustomer.setPhone(newUser.getPhone());
+        createdCustomer.setAddress(newUser.getAddress());
         createdCustomer.setCreation_date(newUser.getCreation_date());
         return createdCustomer;
     }
 
 
 
-    public DashboardObject setDashBoardDetails(CustomerPrincipal createdCustomerSaved, String token){
+    public DashboardObject setDashBoardDetails(CustomerPrincipal customer, String token){
         DashboardObject dashboardObject = new DashboardObject();
-        dashboardObject.setFirstName(createdCustomerSaved.getFirstName());
-        dashboardObject.setLastName(createdCustomerSaved.getLastName());
+        dashboardObject.setFirstName(customer.getFirstName());
+        dashboardObject.setLastName(customer.getLastName());
         dashboardObject.setJwtToken(token);
-        dashboardObject.setCustomerAccounts(createdCustomerSaved.getCustomerAccounts());
+        dashboardObject.setCustomerAccounts(customer.getCustomerAccounts());
         return dashboardObject;
     }
     public DashboardObject setDashBoardDetails(Customer createdCustomerSaved, String token){

@@ -3,11 +3,14 @@ package com.everydayBanking.everydayBank;
 import com.everydayBanking.everydayBank.controller.CustomerController;
 import com.everydayBanking.everydayBank.model.Customer;
 import com.everydayBanking.everydayBank.model.DashboardObject;
+import com.everydayBanking.everydayBank.model.LoginObject;
 import com.everydayBanking.everydayBank.service.AccountService;
 import com.everydayBanking.everydayBank.service.CustomerService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+
+import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class EverydayBankApplication {
@@ -26,6 +29,7 @@ public class EverydayBankApplication {
 		newUser.setEmail("jid@gmail.com");
 		newUser.setPhone("6099126364");
 		newUser.setAddress("6099126364");
+		newUser.setCreation_date(LocalDateTime.now());
 
 		Customer newUser1 = context.getBean(Customer.class);
 		newUser1.setFirstName("jo");
@@ -35,7 +39,17 @@ public class EverydayBankApplication {
 		newUser1.setEmail("jid@gil.com");
 		newUser1.setPhone("6099126364");
 		newUser1.setAddress("thh dye jte");
+		newUser1.setCreation_date(LocalDateTime.now());
 
+		Customer newUser2 = context.getBean(Customer.class);
+		newUser2.setFirstName("jo");
+		newUser2.setLastname("d");
+		newUser2.setUsername("jibhg");
+		newUser2.setPassword("petpan");
+		newUser2.setEmail("jid@gil.com");
+		newUser2.setPhone("6099126364");
+		newUser2.setAddress("thh dye jte");
+		newUser2.setCreation_date(LocalDateTime.now());
 //{
 //    "firstName": "jason",
 //    "lastname": " bourne",
@@ -50,7 +64,9 @@ public class EverydayBankApplication {
 //}
 //		DashboardObject dashboardObject= customerController.signUpCustomer(newUser);
 //		System.out.println(dashboardObject);
-		System.out.println(cosService.createCustomer(newUser));
+//		System.out.println(cosService.signUp(newUser1));
+		LoginObject loginObject = new LoginObject("jibhg", "petpan");
+		System.out.println(cosService.login(loginObject));
 
 	}
 

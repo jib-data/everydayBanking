@@ -36,7 +36,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityChain(HttpSecurity http) throws Exception {
 
         http.csrf(customizer -> customizer.disable())
-                .authorizeHttpRequests(request -> request.requestMatchers("/login", "/signup").permitAll()
+                .authorizeHttpRequests(request -> request.requestMatchers("/signup").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 //                Adding the instruction to do JWT check before Username password authentication
@@ -48,7 +48,6 @@ public class SecurityConfig {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setPasswordEncoder( new BCryptPasswordEncoder(12));
         authProvider.setUserDetailsService(customerUserDetailsService);
-
         return authProvider;
     }
 

@@ -14,10 +14,15 @@ import java.util.Objects;
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "account_id")
     int accountId;
+    @Column(name = "account_number")
     private String accountNumber;
+    @Column(name = "account_balance")
     private Double accountBalance;
-    private String accountType;
+    @Column(name = "account_type")
+    private String accountType = "savings";
+    @Column(name = "creation_date")
     private LocalDateTime creation;
     @JsonIgnore
     @ManyToOne(optional = false)
