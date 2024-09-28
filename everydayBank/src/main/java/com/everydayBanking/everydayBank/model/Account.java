@@ -59,6 +59,9 @@ public class Account {
         return customer;
     }
 
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
     public String getAccountNumber() {
         return accountNumber;
     }
@@ -93,6 +96,9 @@ public class Account {
 
     public List<Transaction> getTransactions() {
         return transactions;
+    }
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
 

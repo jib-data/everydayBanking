@@ -3,6 +3,7 @@ package com.everydayBanking.everydayBank.service;
 import com.everydayBanking.everydayBank.model.*;
 import com.everydayBanking.everydayBank.repository.CustomerRepository;
 import com.everydayBanking.everydayBank.securityconfig.JwtUtils;
+import jakarta.transaction.Transactional;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -32,15 +33,17 @@ public class CustomerService implements CustomerServiceInterface{
     }
 
     @Override
-    public Customer signUp( Customer newUser){
+    @Transactional
+    public DashboardObject signUp( Customer newUser){
         Customer existingCustomer = customerRepository.findByUsername(newUser.getUsername());
         if (existingCustomer == null){
             Customer createdCustomer = createCustomer(newUser);
             Customer createdCustomerSaved = customerRepository.save(createdCustomer);
             Account createdAccount = accountService.createAccount(createdCustomerSaved);
-//            String token = jwtUtils.generateJwtToken(createdCustomerSaved.getUsername());
-//            DashboardObject dashboardObject = setDashBoardDetails(createdCustomerSaved, token);
-            return createdCustomerSaved;
+            System.out.println(createdAccount);
+            String token = jwtUtils.generateJwtToken(createdCustomerSaved.getUsername());
+            DashboardObject dashboardObject = setDashBoardDetails(createdCustomerSaved, token);
+            return dashboardObject;
         } else {
             return null;
         }
@@ -86,6 +89,14 @@ public class CustomerService implements CustomerServiceInterface{
         dashboardObject.setLastName(createdCustomerSaved.getLastName());
         dashboardObject.setJwtToken(token);
         dashboardObject.setCustomerAccounts(createdCustomerSaved.getCustomerAccounts());
+        return dashboardObject;
+    }
+    public DashboardObject setDashBoardDetails(Customer createdCustomerSaved, String token){
+        DashboardObject dashboardObject = new DashboardObject();
+        dashboardObject.setFirstName(createdCustomerSaved.getFirstName());
+        dashboardObject.setLastName(createdCustomerSaved.getLastName());
+        dashboardObject.setJwtToken(token);
+        dashboardObject.setCustomerAccounts(createdCustomerSaved.getAccounts());
         return dashboardObject;
     }
 }

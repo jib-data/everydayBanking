@@ -6,6 +6,6 @@ import com.everydayBanking.everydayBank.model.LoginObject;
 
 
 public interface CustomerServiceInterface {
-    Customer signUp( Customer newCustomer);
+    DashboardObject signUp( Customer newCustomer);
     DashboardObject login(LoginObject loginObjet);
 }
