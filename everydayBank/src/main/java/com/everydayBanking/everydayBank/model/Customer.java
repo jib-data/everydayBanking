@@ -33,6 +33,7 @@ public class Customer {
     @Column(name = "phone_number")
     private String phone;
     private LocalDateTime creation_date;
+    @JsonIgnore
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Account> accounts = new ArrayList<>();
     public Customer() {
