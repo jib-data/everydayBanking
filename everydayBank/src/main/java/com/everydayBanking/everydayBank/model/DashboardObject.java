@@ -1,22 +1,33 @@
 package com.everydayBanking.everydayBank.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DashboardObject {
     private String firstName;
     private String lastName;
     private String jwtToken;
-
-    private List<Account> customerAccounts;
+    private List<AccountDTO> customerAccounts;
 
     public DashboardObject() {
     }
 
-    public DashboardObject(String firstName, String lastName, String jwtToken, List<Account> customerAccounts) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public DashboardObject(Customer customer, String jwtToken) {
+        this.firstName = customer.getFirstName();
+        this.lastName = customer.getLastName();
         this.jwtToken = jwtToken;
-        this.customerAccounts = customerAccounts;
+        this.customerAccounts = customer.getAccounts()
+                .stream()
+                    .map(account -> new AccountDTO(account)).collect(Collectors.toList());
+    }
+    public DashboardObject(CustomerPrincipal customer, String jwtToken) {
+        this.firstName = customer.getFirstName();
+        this.lastName = customer.getLastName();
+        this.jwtToken = jwtToken;
+        this.customerAccounts = customer.getCustomerAccounts()
+                .stream()
+                .map(account -> new AccountDTO(account)).collect(Collectors.toList());
     }
 
 
@@ -44,11 +55,11 @@ public class DashboardObject {
         this.jwtToken = jwtToken;
     }
 
-    public List<Account> getCustomerAccounts() {
+    public List<AccountDTO> getCustomerAccounts() {
         return customerAccounts;
     }
 
-    public void setCustomerAccounts(List<Account> customerAccounts) {
+    public void setCustomerAccounts(List<AccountDTO> customerAccounts) {
         this.customerAccounts = customerAccounts;
     }
 

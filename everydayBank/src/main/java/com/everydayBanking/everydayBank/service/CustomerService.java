@@ -35,12 +35,15 @@ public class CustomerService implements CustomerServiceInterface{
     @Override
     @Transactional
     public DashboardObject signUp( Customer newUser){
+        System.out.println("Method is being called");
         Customer existingCustomer = customerRepository.findByUsername(newUser.getUsername());
+        System.out.println(existingCustomer + " exists");
         if (existingCustomer == null){
+            System.out.println("Existing user doesn't exist");
             Customer createdCustomer = createCustomer(newUser);
             Customer createdCustomerSaved = customerRepository.save(createdCustomer);
             Account createdAccount = accountService.createAccount(createdCustomerSaved);
-            System.out.println(createdAccount);
+//            System.out.println(createdAccount);
             String token = jwtUtils.generateJwtToken(createdCustomerSaved.getUsername());
             DashboardObject dashboardObject = setDashBoardDetails(createdCustomerSaved, token);
             return dashboardObject;
@@ -50,6 +53,7 @@ public class CustomerService implements CustomerServiceInterface{
     }
 
     @Override
+    @Transactional
     public DashboardObject login(LoginObject loginObjet) {
         Authentication authentication;
         try {
@@ -69,8 +73,8 @@ public class CustomerService implements CustomerServiceInterface{
 
     public Customer createCustomer(Customer newUser){
         Customer createdCustomer = new Customer();
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        System.out.println(newUser.getPassword());
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
+//        System.out.println(newUser.getPassword());
         createdCustomer.setUsername(newUser.getUsername());
         createdCustomer.setPassword(passwordEncoder.encode(newUser.getPassword()));
         createdCustomer.setFirstName(newUser.getFirstName());
@@ -85,19 +89,19 @@ public class CustomerService implements CustomerServiceInterface{
 
 
     public DashboardObject setDashBoardDetails(CustomerPrincipal customer, String token){
-        DashboardObject dashboardObject = new DashboardObject();
-        dashboardObject.setFirstName(customer.getFirstName());
-        dashboardObject.setLastName(customer.getLastName());
-        dashboardObject.setJwtToken(token);
-        dashboardObject.setCustomerAccounts(customer.getCustomerAccounts());
-        return dashboardObject;
+                    return new DashboardObject(customer, token);
+//        dashboardObject.setFirstName(customer.getFirstName());
+//        dashboardObject.setLastName(customer.getLastName());
+//        dashboardObject.setJwtToken(token);
+//        dashboardObject.setCustomerAccounts(customer.getCustomerAccounts());
+//        return dashboardObject;
     }
     public DashboardObject setDashBoardDetails(Customer createdCustomerSaved, String token){
-        DashboardObject dashboardObject = new DashboardObject();
-        dashboardObject.setFirstName(createdCustomerSaved.getFirstName());
-        dashboardObject.setLastName(createdCustomerSaved.getLastName());
-        dashboardObject.setJwtToken(token);
-        dashboardObject.setCustomerAccounts(createdCustomerSaved.getAccounts());
-        return dashboardObject;
+        return new DashboardObject(createdCustomerSaved, token);
+//        dashboardObject.setFirstName(createdCustomerSaved.getFirstName());
+//        dashboardObject.setLastName(createdCustomerSaved.getLastName());
+//        dashboardObject.setJwtToken(token);
+//        dashboardObject.setCustomerAccounts(createdCustomerSaved.getAccounts());
+//        return dashboardObject;
     }
 }

@@ -20,7 +20,7 @@ public class AccountService implements AccountServiceInterface {
      AccountRepository accountRepository;
 
      private static final String ACCOUNT_INITIAL = "AB";
-     private static final AtomicLong AccountDigits = new AtomicLong(0);
+     private static final AtomicLong AccountDigits = new AtomicLong();
 
 
     public AccountService() {
@@ -59,8 +59,12 @@ public class AccountService implements AccountServiceInterface {
 
     @Override
     public Account deleteAccountById(int accountId) {
-        Account deletedAccount = deleteAccountById(accountId);
-        return deletedAccount;
+        Optional<Account> deletedAccount = accountRepository.findById(accountId);
+        accountRepository.deleteById(accountId);
+        if (deletedAccount.isPresent()){
+            return deletedAccount.get();
+        }
+        return null;
     }
 
     @Override
@@ -69,11 +73,26 @@ public class AccountService implements AccountServiceInterface {
     }
 
     public String createAccountNumber(){
-        Long currentAccountDigit;
-        currentAccountDigit = AccountDigits.incrementAndGet();
+        setCurrentAccountNumber(accountRepository);
+        Long currentAccountDigit = AccountDigits.incrementAndGet();
         String formattedDigits = String.format("%09d", currentAccountDigit);
         String accountNumber = ACCOUNT_INITIAL + formattedDigits;
         return accountNumber;
 
+    }
+    public static void setCurrentAccountNumber(AccountRepository accountRepository){
+        Optional<Account> lastAccount = accountRepository.findTopByOrderByAccountIdDesc();
+        if (lastAccount.isPresent()){
+            String lastAccountNumber = lastAccount.get().getAccountNumber();
+            try {
+                Long lastNumber = Long.parseLong(lastAccountNumber.replace(ACCOUNT_INITIAL, ""));
+                AccountDigits.set(lastNumber);
+            } catch (NumberFormatException e) {
+                System.out.println(e.getMessage());
+            }
+
+        } else {
+            AccountDigits.set(0l);
+        }
     }
 }

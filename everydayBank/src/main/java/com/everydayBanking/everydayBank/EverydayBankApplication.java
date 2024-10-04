@@ -22,34 +22,44 @@ public class EverydayBankApplication {
 		CustomerService cosService = (CustomerService) context.getBean(CustomerService.class);
 		AccountService accountService = (AccountService) context.getBean(AccountService.class);
 		Customer newUser = context.getBean(Customer.class);
-		newUser.setFirstName("john");
-		newUser.setLastname("doe");
-		newUser.setUsername("jib");
-		newUser.setPassword("peterpan");
-		newUser.setEmail("jid@gmail.com");
-		newUser.setPhone("6099126364");
-		newUser.setAddress("6099126364");
-		newUser.setCreation_date(LocalDateTime.now());
+//		newUser.setFirstName("john");
+//		newUser.setLastname("doe");
+//		newUser.setUsername("bumbum");
+//		newUser.setPassword("peterpan");
+//		newUser.setEmail("jid@gmail.com");
+//		newUser.setPhone("6099126364");
+//		newUser.setAddress("chorkor");
+//		newUser.setCreation_date(LocalDateTime.now());
 
-		Customer newUser1 = context.getBean(Customer.class);
-		newUser1.setFirstName("jo");
-		newUser1.setLastname("d");
-		newUser1.setUsername("jibhg");
-		newUser1.setPassword("petpan");
-		newUser1.setEmail("jid@gil.com");
-		newUser1.setPhone("6099126364");
-		newUser1.setAddress("thh dye jte");
-		newUser1.setCreation_date(LocalDateTime.now());
+//		Customer newUser1 = context.getBean(Customer.class);
+//		newUser1.setFirstName("job");
+//		newUser1.setLastname("dickson");
+//		newUser1.setUsername("kyekyeku");
+//		newUser1.setPassword("petpan");
+//		newUser1.setEmail("mjid@gil.co");
+//		newUser1.setPhone("6099126364");
+//		newUser1.setAddress("Kalabule");
+//		newUser1.setCreation_date(LocalDateTime.now());
 
-		Customer newUser2 = context.getBean(Customer.class);
-		newUser2.setFirstName("jo");
-		newUser2.setLastname("d");
-		newUser2.setUsername("jibhg");
-		newUser2.setPassword("petpan");
-		newUser2.setEmail("jid@gil.com");
-		newUser2.setPhone("6099126364");
-		newUser2.setAddress("thh dye jte");
-		newUser2.setCreation_date(LocalDateTime.now());
+		Customer newUser3 = context.getBean(Customer.class);
+		newUser3.setFirstName("preter");
+		newUser3.setLastname("parker");
+		newUser3.setUsername("spiderman");
+		newUser3.setPassword("petpan");
+		newUser3.setEmail("spidermyass@gmail.com");
+		newUser3.setPhone("6099126364");
+		newUser3.setAddress("Kalabule");
+		newUser3.setCreation_date(LocalDateTime.now());
+
+//		Customer newUser2 = context.getBean(Customer.class);
+//		newUser2.setFirstName("jo");
+//		newUser2.setLastname("d");
+//		newUser2.setUsername("jibhg");
+//		newUser2.setPassword("petpan");
+//		newUser2.setEmail("jid@gil.com");
+//		newUser2.setPhone("6099126364");
+//		newUser2.setAddress("thh dye jte");
+//		newUser2.setCreation_date(LocalDateTime.now());
 //{
 //    "firstName": "jason",
 //    "lastname": " bourne",
@@ -62,11 +72,11 @@ public class EverydayBankApplication {
 //    "deletion_date": "2024-09-13T14:28:15"
 //
 //}
-//		DashboardObject dashboardObject= customerController.signUpCustomer(newUser);
-//		System.out.println(dashboardObject);
+		DashboardObject dashboardObject= cosService.signUp(newUser3);
+		System.out.println(dashboardObject);
 //		System.out.println(cosService.signUp(newUser1));
-		LoginObject loginObject = new LoginObject("jibhg", "petpan");
-		System.out.println(cosService.login(loginObject));
+//		LoginObject loginObject = new LoginObject("kyekyeku", "petpan");
+//		System.out.println(cosService.login(loginObject));
 
 	}
 

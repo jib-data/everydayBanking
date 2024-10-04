@@ -2,11 +2,13 @@ package com.everydayBanking.everydayBank.service;
 
 
 import com.everydayBanking.everydayBank.model.Transaction;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class TransactionService implements TransactionServiceInterface{
     @Override
     public Transaction depositMoney(int accountId, int amountDeposited) {
