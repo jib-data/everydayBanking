@@ -12,5 +12,5 @@ public interface AccountServiceInterface {
     Account getAccountById(int accountId);
     List<Account> getCustomerAccountsById(int customerId);
     Account deleteAccountById(int accountId);
-    Account updateAccountByAccountId(int accountId);
+    Account updateAccountByAccountId(int accountId, String type);
 }

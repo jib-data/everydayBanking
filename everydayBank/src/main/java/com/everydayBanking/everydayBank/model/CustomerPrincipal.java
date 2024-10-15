@@ -41,6 +41,6 @@ public class CustomerPrincipal implements UserDetails {
     }
     @JsonIgnore
     public int getCustomerId(){
-        return customer.getCustomer_id();
+        return customer.getCustomerId();
     }
 }

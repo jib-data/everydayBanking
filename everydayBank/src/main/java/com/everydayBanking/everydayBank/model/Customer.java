@@ -14,7 +14,7 @@ import java.util.Objects;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int customer_id;
+    private int customerId;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
@@ -36,6 +36,7 @@ public class Customer {
     @JsonIgnore
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Account> accounts = new ArrayList<>();
+
     public Customer() {
     }
 
@@ -61,8 +62,8 @@ public class Customer {
 
     }
 
-    public Customer(int customer_id, String firstName, String lastName, String username, String password, String email, String address, LocalDateTime creation_date, LocalDateTime deletion_date) {
-        this.customer_id = customer_id;
+    public Customer(int customerId, String firstName, String lastName, String username, String password, String email, String address, LocalDateTime creation_date, LocalDateTime deletion_date) {
+        this.customerId = customerId;
         this.firstName = firstName;
         this.lastname = lastName;
         this.username = username;
@@ -73,12 +74,12 @@ public class Customer {
 
     }
 
-    public int getCustomer_id() {
-        return customer_id;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer_id(int customer_id) {
-        this.customer_id = customer_id;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public String getFirstName() {
@@ -166,18 +167,18 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return customer_id == customer.customer_id && Objects.equals(firstName, customer.firstName) && Objects.equals(lastname, customer.lastname) && Objects.equals(username, customer.username) && Objects.equals(password, customer.password) && Objects.equals(email, customer.email) && Objects.equals(address, customer.address) && Objects.equals(creation_date, customer.creation_date);
+        return customerId == customer.customerId && Objects.equals(firstName, customer.firstName) && Objects.equals(lastname, customer.lastname) && Objects.equals(username, customer.username) && Objects.equals(password, customer.password) && Objects.equals(email, customer.email) && Objects.equals(address, customer.address) && Objects.equals(creation_date, customer.creation_date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customer_id, firstName, lastname, username, password, email, address, creation_date);
+        return Objects.hash(customerId, firstName, lastname, username, password, email, address, creation_date);
     }
 
     @Override
     public String toString() {
         return "Customer{" +
-                "customer_id=" + customer_id +
+                "customer_id=" + customerId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastname + '\'' +
                 ", username='" + username + '\'' +

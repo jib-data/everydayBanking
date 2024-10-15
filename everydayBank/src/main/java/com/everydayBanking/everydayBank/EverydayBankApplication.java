@@ -1,6 +1,7 @@
 package com.everydayBanking.everydayBank;
 
 import com.everydayBanking.everydayBank.controller.CustomerController;
+import com.everydayBanking.everydayBank.model.Account;
 import com.everydayBanking.everydayBank.model.Customer;
 import com.everydayBanking.everydayBank.model.DashboardObject;
 import com.everydayBanking.everydayBank.model.LoginObject;
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SpringBootApplication
 public class EverydayBankApplication {
@@ -72,8 +74,12 @@ public class EverydayBankApplication {
 //    "deletion_date": "2024-09-13T14:28:15"
 //
 //}
-		DashboardObject dashboardObject= cosService.signUp(newUser3);
-		System.out.println(dashboardObject);
+//		DashboardObject dashboardObject= cosService.signUp(newUser3);
+//		System.out.println(dashboardObject);
+
+		List<Account> accounts = accountService.getCustomerAccountsById(11);
+		System.out.println(accounts);
+
 //		System.out.println(cosService.signUp(newUser1));
 //		LoginObject loginObject = new LoginObject("kyekyeku", "petpan");
 //		System.out.println(cosService.login(loginObject));

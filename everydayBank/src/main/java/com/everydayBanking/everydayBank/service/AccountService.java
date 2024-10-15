@@ -5,6 +5,8 @@ import com.everydayBanking.everydayBank.controller.AccountControllerInterface;
 import com.everydayBanking.everydayBank.model.Account;
 import com.everydayBanking.everydayBank.model.Customer;
 import com.everydayBanking.everydayBank.repository.AccountRepository;
+import com.everydayBanking.everydayBank.repository.CustomerRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,14 +23,17 @@ public class AccountService implements AccountServiceInterface {
 
      private static final String ACCOUNT_INITIAL = "AB";
      private static final AtomicLong AccountDigits = new AtomicLong();
+    private final CustomerRepository customerRepository;
 
 
-    public AccountService() {
-    }
+
     @Autowired
-    public AccountService(AccountRepository accountRepository) {
+    public AccountService(AccountRepository accountRepository,
+                          CustomerRepository customerRepository) {
         this.accountRepository = accountRepository;
+        this.customerRepository = customerRepository;
     }
+
 
     @Override
     public Account createAccount(Customer customer) {
@@ -53,22 +58,36 @@ public class AccountService implements AccountServiceInterface {
 
     @Override
     public List<Account> getCustomerAccountsById(int customerId) {
-
-        return null;
+        return accountRepository.findByCustomerId(customerId);
     }
 
     @Override
+    @Transactional
     public Account deleteAccountById(int accountId) {
-        Optional<Account> deletedAccount = accountRepository.findById(accountId);
-        accountRepository.deleteById(accountId);
-        if (deletedAccount.isPresent()){
-            return deletedAccount.get();
+        Optional<Account> account = accountRepository.findById(accountId);
+        if(account.isPresent()){
+            Account deletedAccount = account.get();
+            Customer customer = deletedAccount.getCustomer();
+            if (customer.getAccounts().size() == 1){
+//                accountRepository.deleteById(deletedAccount.getAccountId());
+                customerRepository.deleteById(customer.getCustomerId());
+            } else {
+                accountRepository.deleteById(deletedAccount.getAccountId());
+            }
+
+            return deletedAccount;
         }
         return null;
+
     }
 
     @Override
-    public Account updateAccountByAccountId(int accountId) {
+    public Account updateAccountByAccountId(int accountId, String type) {
+        Optional<Account> updatedAccount = accountRepository.findById(accountId);
+        if (updatedAccount.isPresent()){
+            updatedAccount.get().setAccountType(type);
+            return updatedAccount.get();
+        }
         return null;
     }
 
@@ -89,6 +108,7 @@ public class AccountService implements AccountServiceInterface {
                 AccountDigits.set(lastNumber);
             } catch (NumberFormatException e) {
                 System.out.println(e.getMessage());
+                AccountDigits.set(0l);
             }
 
         } else {
