@@ -77,8 +77,10 @@ public class EverydayBankApplication {
 //		DashboardObject dashboardObject= cosService.signUp(newUser3);
 //		System.out.println(dashboardObject);
 
-		List<Account> accounts = accountService.getCustomerAccountsById(11);
-		System.out.println(accounts);
+//		List<Account> accounts = accountService.getCustomerAccountsById(10);
+//		System.out.println(accounts);
+		Account account = accountService.deleteAccountById(3);
+		System.out.println(account);
 
 //		System.out.println(cosService.signUp(newUser1));
 //		LoginObject loginObject = new LoginObject("kyekyeku", "petpan");
