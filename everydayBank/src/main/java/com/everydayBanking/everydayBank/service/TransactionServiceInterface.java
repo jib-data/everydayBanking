@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 public interface TransactionServiceInterface {
-    Transaction depositMoney(@RequestParam int accountId, @RequestParam int amountDeposited);
-    Transaction withdrawMoney(@RequestParam int accountId, @RequestParam int amountWithdrawn);
-    Transaction transferMoney(@RequestParam int senderAccountId, @RequestParam int receiverAccountId, @PathVariable int amountTransferred);
-    Transaction getTransactionById(@PathVariable int transactionId);
-    List<Transaction> getAllTransactionsByAccountId(@PathVariable int accountId);
-    Transaction deleteTransactionByTransactionId(@PathVariable int transactionId);
+    Transaction depositMoney(int accountId, Long amountDeposited);
+    Transaction withdrawMoney(int accountId, int amountWithdrawn);
+    Transaction transferMoney(int senderAccountId,int receiverAccountId, int amountTransferred);
+    Transaction getTransactionById(int transactionId);
+    List<Transaction> getAllTransactionsByAccountId(int accountId);
+    Transaction deleteTransactionByTransactionId(int transactionId);
 }

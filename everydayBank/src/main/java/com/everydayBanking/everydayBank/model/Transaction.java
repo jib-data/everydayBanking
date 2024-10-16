@@ -10,9 +10,13 @@ import java.util.Objects;
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transaction_id")
     private int transactionId;
-    private String transactionType;
-    private String amount;
+    @Column(name = "transaction_type")
+    private TransactionType transactionType;
+    @Column(name = "transaction_amount")
+    private Long amount;
+    @Column(name = "transaction_date")
     private LocalDateTime transactionDate;
     @ManyToOne(optional = false)
     @JoinColumn (name = "account_id", nullable = false)
@@ -22,14 +26,15 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(String transactionType, String amount, LocalDateTime transactionDate) {
+    public Transaction(TransactionType transactionType, Long amount, LocalDateTime transactionDate, Account account) {
         this.transactionType = transactionType;
         this.amount = amount;
         this.transactionDate = transactionDate;
+        this.account = account;
 
     }
 
-    public Transaction(int transactioId, String transactionType, String amount, LocalDateTime transactionDate) {
+    public Transaction(int transactioId, TransactionType transactionType, Long amount, LocalDateTime transactionDate) {
         this.transactionId = transactioId;
         this.transactionType = transactionType;
         this.amount = amount;
@@ -44,19 +49,19 @@ public class Transaction {
         this.transactionId = transactioId;
     }
 
-    public String getTransactionType() {
+    public TransactionType getTransactionType() {
         return transactionType;
     }
 
-    public void setTransactionType(String transactionType) {
+    public void setTransactionType(TransactionType transactionType) {
         this.transactionType = transactionType;
     }
 
-    public String getAmount() {
+    public Long getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(Long amount) {
         this.amount = amount;
     }
 
