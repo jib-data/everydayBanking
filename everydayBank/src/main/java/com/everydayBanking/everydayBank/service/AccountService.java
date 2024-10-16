@@ -4,8 +4,10 @@ package com.everydayBanking.everydayBank.service;
 import com.everydayBanking.everydayBank.controller.AccountControllerInterface;
 import com.everydayBanking.everydayBank.model.Account;
 import com.everydayBanking.everydayBank.model.Customer;
+import com.everydayBanking.everydayBank.model.DeletedAccount;
 import com.everydayBanking.everydayBank.repository.AccountRepository;
 import com.everydayBanking.everydayBank.repository.CustomerRepository;
+import com.everydayBanking.everydayBank.repository.DeletedAccountRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,14 +26,16 @@ public class AccountService implements AccountServiceInterface {
      private static final String ACCOUNT_INITIAL = "AB";
      private static final AtomicLong AccountDigits = new AtomicLong();
     private final CustomerRepository customerRepository;
-
+    private final DeletedAccountRepository deletedAccountRepository;
 
 
     @Autowired
     public AccountService(AccountRepository accountRepository,
-                          CustomerRepository customerRepository) {
+                          CustomerRepository customerRepository,
+                          DeletedAccountRepository deletedAccountRepository) {
         this.accountRepository = accountRepository;
         this.customerRepository = customerRepository;
+        this.deletedAccountRepository = deletedAccountRepository;
     }
 
 
@@ -64,21 +68,35 @@ public class AccountService implements AccountServiceInterface {
     @Override
     @Transactional
     public Account deleteAccountById(int accountId) {
-        Optional<Account> account = accountRepository.findById(accountId);
-        if(account.isPresent()){
-            Account deletedAccount = account.get();
-            Customer customer = deletedAccount.getCustomer();
+        Optional<Account> accountOPT = accountRepository.findById(accountId);
+        if(accountOPT.isPresent()){
+            Account account = accountOPT.get();
+            Customer customer = account.getCustomer();
+            DeletedAccount deletedAccount = setDeletedObject(customer, account);
+            deletedAccountRepository.save(deletedAccount);
             if (customer.getAccounts().size() == 1){
 //                accountRepository.deleteById(deletedAccount.getAccountId());
                 customerRepository.deleteById(customer.getCustomerId());
             } else {
-                accountRepository.deleteById(deletedAccount.getAccountId());
+                accountRepository.deleteById(account.getAccountId());
             }
 
-            return deletedAccount;
+            return account;
         }
         return null;
 
+    }
+
+    private DeletedAccount setDeletedObject(Customer customer, Account account) {
+        return new DeletedAccount(account.getAccountId(),
+                                  customer.getUsername(),
+                                  customer.getFirstName(),
+                                  customer.getLastName(),
+                                  account.getAccountNumber(),
+                                  account.getAccountBalance(),
+                                  account.getAccountType(),
+                                  account.getCreation(),
+                                  LocalDateTime.now());
     }
 
     @Override

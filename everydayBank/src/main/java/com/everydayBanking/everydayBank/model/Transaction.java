@@ -11,8 +11,9 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int transactionId;
-    private String transactionType;
-    private String amount;
+    private int accountId;
+    private TransactionType transactionType;
+    private int amount;
     private LocalDateTime transactionDate;
     @ManyToOne(optional = false)
     @JoinColumn (name = "account_id", nullable = false)
@@ -22,41 +23,42 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(String transactionType, String amount, LocalDateTime transactionDate) {
+    public Transaction(int accountId, TransactionType transactionType, int amount, LocalDateTime transactionDate) {
+        this.accountId = accountId;
         this.transactionType = transactionType;
         this.amount = amount;
         this.transactionDate = transactionDate;
 
     }
 
-    public Transaction(int transactioId, String transactionType, String amount, LocalDateTime transactionDate) {
-        this.transactionId = transactioId;
-        this.transactionType = transactionType;
-        this.amount = amount;
-        this.transactionDate = transactionDate;
-    }
+//    public Transaction(int transactionId, TransactionType transactionType, String amount, LocalDateTime transactionDate) {
+//        this.transactionId = transactionId;
+//        this.transactionType = transactionType;
+//        this.amount = amount;
+//        this.transactionDate = transactionDate;
+//    }
 
-    public int getTransactioId() {
+    public int getTransactionId() {
         return transactionId;
     }
 
-    public void setTransactioId(int transactioId) {
+    public void setTransactionId(int transactioId) {
         this.transactionId = transactioId;
     }
 
-    public String getTransactionType() {
+    public TransactionType getTransactionType() {
         return transactionType;
     }
 
-    public void setTransactionType(String transactionType) {
+    public void setTransactionType(TransactionType transactionType) {
         this.transactionType = transactionType;
     }
 
-    public String getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
