@@ -6,9 +6,10 @@ import com.everydayBanking.everydayBank.model.Transaction;
 import com.everydayBanking.everydayBank.model.TransactionType;
 import com.everydayBanking.everydayBank.repository.AccountRepository;
 import com.everydayBanking.everydayBank.repository.TransactionRepository;
-import jakarta.transaction.Transactional;
+//import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,47 +19,52 @@ import java.util.List;
 public class TransactionService implements TransactionServiceInterface{
     AccountService accountService;
     TransactionRepository transactionRepository;
+    AccountRepository accountRepository;
 
     public TransactionService() {
     }
     @Autowired
-    public TransactionService(AccountService accountService, TransactionRepository transactionRepository) {
+    public TransactionService(AccountService accountService, TransactionRepository transactionRepository,
+                              AccountRepository accountRepository) {
         this.accountService = accountService;
         this.transactionRepository = transactionRepository;
+        this.accountRepository = accountRepository;
     }
 
     @Override
     @Transactional
-    public boolean depositMoney(int accountId, int amountDeposited) {
-        Account userAccount = accountService.getAccountById(accountId);
-        if (userAccount != null){
-            userAccount.setAccountBalance(userAccount.getAccountBalance() + amountDeposited);
-            saveTransactionObject(userAccount, amountDeposited);
-            return true;
+    public Transaction depositMoney(int accountId, Long amountDeposited) {
+        Account account = accountService.getAccountById(accountId);
+        if (account != null){
+            account.setAccountBalance(account.getAccountBalance() + amountDeposited);
+            accountRepository.save(account);
+            saveTransactionObject(account, amountDeposited);
+
+
         }
-        return false;
+        return null;
+    }
+
+    private void saveTransactionObject(Account account, Long amount) {
+        Transaction transaction = new Transaction(TransactionType.DEPOSIT, amount, LocalDateTime.now(), account);
+        transactionRepository.save(transaction);
     }
 
     @Override
     @Transactional
-    public boolean withdrawMoney(int accountId, int amountWithdrawn) {
-        Account userAccount = accountService.getAccountById(accountId);
-        if (userAccount != null){
-            userAccount.setAccountBalance(userAccount.getAccountBalance() - amountWithdrawn);
-            saveTransactionObject(userAccount, amountWithdrawn);
-            return true;
+    public Transaction withdrawMoney(int accountId, Long amountWithdrawn) {
+        Account account = accountService.getAccountById(accountId);
+        if (account != null){
+            account.setAccountBalance(account.getAccountBalance() + amountWithdrawn);
+            accountRepository.save(account);
+            saveTransactionObject(account, amountWithdrawn);
         }
-        return false;
+        return null;
     }
 
     @Override
     public Transaction transferMoney(int senderAccountId, int receiverAccountId, int amountTransferred) {
         return null;
-    }
-
-    private void saveTransactionObject(Account userAccount, int transactionAmount) {
-        Transaction transaction = new Transaction(userAccount.getAccountId(), TransactionType.DEPOSIT, transactionAmount, LocalDateTime.now());
-        transactionRepository.save(transaction);
     }
 
     @Override

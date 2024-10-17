@@ -10,10 +10,13 @@ import java.util.Objects;
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transaction_id")
     private int transactionId;
-    private int accountId;
+    @Column(name = "transaction_type")
     private TransactionType transactionType;
-    private int amount;
+    @Column(name = "transaction_amount")
+    private Long amount;
+    @Column(name = "transaction_date")
     private LocalDateTime transactionDate;
     @ManyToOne(optional = false)
     @JoinColumn (name = "account_id", nullable = false)
@@ -23,26 +26,26 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(int accountId, TransactionType transactionType, int amount, LocalDateTime transactionDate) {
-        this.accountId = accountId;
+    public Transaction(TransactionType transactionType, Long amount, LocalDateTime transactionDate, Account account) {
         this.transactionType = transactionType;
         this.amount = amount;
         this.transactionDate = transactionDate;
+        this.account = account;
 
     }
 
-//    public Transaction(int transactionId, TransactionType transactionType, String amount, LocalDateTime transactionDate) {
-//        this.transactionId = transactionId;
-//        this.transactionType = transactionType;
-//        this.amount = amount;
-//        this.transactionDate = transactionDate;
-//    }
+    public Transaction(int transactioId, TransactionType transactionType, Long amount, LocalDateTime transactionDate) {
+        this.transactionId = transactioId;
+        this.transactionType = transactionType;
+        this.amount = amount;
+        this.transactionDate = transactionDate;
+    }
 
-    public int getTransactionId() {
+    public int getTransactioId() {
         return transactionId;
     }
 
-    public void setTransactionId(int transactioId) {
+    public void setTransactioId(int transactioId) {
         this.transactionId = transactioId;
     }
 
@@ -54,11 +57,11 @@ public class Transaction {
         this.transactionType = transactionType;
     }
 
-    public int getAmount() {
+    public Long getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Long amount) {
         this.amount = amount;
     }
 

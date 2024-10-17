@@ -21,10 +21,10 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class AccountService implements AccountServiceInterface {
-     AccountRepository accountRepository;
+    AccountRepository accountRepository;
 
-     private static final String ACCOUNT_INITIAL = "AB";
-     private static final AtomicLong AccountDigits = new AtomicLong();
+    private static final String ACCOUNT_INITIAL = "AB";
+    private static final AtomicLong AccountDigits = new AtomicLong();
     private final CustomerRepository customerRepository;
     private final DeletedAccountRepository deletedAccountRepository;
 
@@ -71,6 +71,7 @@ public class AccountService implements AccountServiceInterface {
         Optional<Account> accountOPT = accountRepository.findById(accountId);
         if(accountOPT.isPresent()){
             Account account = accountOPT.get();
+            System.out.println(account.getAccountId());
             Customer customer = account.getCustomer();
             DeletedAccount deletedAccount = setDeletedObject(customer, account);
             deletedAccountRepository.save(deletedAccount);
@@ -89,14 +90,14 @@ public class AccountService implements AccountServiceInterface {
 
     private DeletedAccount setDeletedObject(Customer customer, Account account) {
         return new DeletedAccount(account.getAccountId(),
-                                  customer.getUsername(),
-                                  customer.getFirstName(),
-                                  customer.getLastName(),
-                                  account.getAccountNumber(),
-                                  account.getAccountBalance(),
-                                  account.getAccountType(),
-                                  account.getCreation(),
-                                  LocalDateTime.now());
+                customer.getUsername(),
+                customer.getFirstName(),
+                customer.getLastName(),
+                account.getAccountNumber(),
+                account.getAccountBalance(),
+                account.getAccountType(),
+                account.getCreation(),
+                LocalDateTime.now());
     }
 
     @Override
