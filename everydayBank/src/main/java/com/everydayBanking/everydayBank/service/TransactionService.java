@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -74,23 +75,26 @@ public class TransactionService implements TransactionServiceInterface{
                 return true;
             }
         }
-
         return false;
     }
 
     @Override
     public Transaction getTransactionById(int transactionId) {
+        Optional<Transaction> transaction = transactionRepository.findById(transactionId);
+        if (transaction.isPresent()){
+            return transaction.get();
+        }
         return null;
     }
 
     @Override
     public List<Transaction> getAllTransactionsByAccountId(int accountId) {
-        return List.of();
+        return transactionRepository.findTransactionsByAccountId(accountId);
     }
 
     @Override
-    public Transaction deleteTransactionByTransactionId(int transactionId) {
-        return null;
+    public void deleteTransactionByTransactionId(int transactionId) {
+        transactionRepository.deleteById(transactionId);
     }
     private void saveTransactionObject(Account account, Double amount, TransactionType transactionType) {
         Transaction transaction = new Transaction(transactionType, amount, LocalDateTime.now(), account);

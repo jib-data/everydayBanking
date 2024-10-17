@@ -12,5 +12,5 @@ public interface TransactionServiceInterface {
     boolean transferMoney(int senderAccountId,int receiverAccountId, Double amountTransferred);
     Transaction getTransactionById(int transactionId);
     List<Transaction> getAllTransactionsByAccountId(int accountId);
-    Transaction deleteTransactionByTransactionId(int transactionId);
+    void deleteTransactionByTransactionId(int transactionId);
 }

@@ -80,11 +80,16 @@ public class EverydayBankApplication {
 //		System.out.println(dashboardObject);
 
 //		List<Account> accounts = accountService.getCustomerAccountsById(10);
-//		System.out.println(accounts);
-		Account account = accountService.getAccountById(5);
-		System.out.println(account);
-		System.out.println(tServ.depositMoney(5, 1500.0));
-		System.out.println(accountService.getAccountById(5));
+////		System.out.println(accounts);
+//		Account account = accountService.getAccountById(4);
+//		System.out.println(account);
+//		System.out.println(accountService.getAccountById(5));
+//		System.out.println(tServ.withdrawMoney(4, 1500.0));
+//		System.out.println(tServ.transferMoney(5,4, 200d));
+//		System.out.println(accountService.getAccountById(4));
+//		System.out.println(accountService.getAccountById(5));
+	     tServ.deleteTransactionByTransactionId(16);
+
 
 //		System.out.println(cosService.signUp(newUser1));
 //		LoginObject loginObject = new LoginObject("kyekyeku", "petpan");
