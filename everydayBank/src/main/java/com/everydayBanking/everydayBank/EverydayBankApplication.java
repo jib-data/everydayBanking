@@ -7,6 +7,7 @@ import com.everydayBanking.everydayBank.model.DashboardObject;
 import com.everydayBanking.everydayBank.model.LoginObject;
 import com.everydayBanking.everydayBank.service.AccountService;
 import com.everydayBanking.everydayBank.service.CustomerService;
+import com.everydayBanking.everydayBank.service.TransactionService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -23,6 +24,7 @@ public class EverydayBankApplication {
 		CustomerController customerController = (CustomerController) context.getBean(CustomerController.class);
 		CustomerService cosService = (CustomerService) context.getBean(CustomerService.class);
 		AccountService accountService = (AccountService) context.getBean(AccountService.class);
+		TransactionService tServ = (TransactionService) context.getBean(TransactionService.class);
 		Customer newUser = context.getBean(Customer.class);
 //		newUser.setFirstName("john");
 //		newUser.setLastname("doe");
@@ -79,8 +81,10 @@ public class EverydayBankApplication {
 
 //		List<Account> accounts = accountService.getCustomerAccountsById(10);
 //		System.out.println(accounts);
-		Account account = accountService.deleteAccountById(3);
+		Account account = accountService.getAccountById(5);
 		System.out.println(account);
+		System.out.println(tServ.depositMoney(5, 1500.0));
+		System.out.println(accountService.getAccountById(5));
 
 //		System.out.println(cosService.signUp(newUser1));
 //		LoginObject loginObject = new LoginObject("kyekyeku", "petpan");

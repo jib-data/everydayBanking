@@ -33,38 +33,49 @@ public class TransactionService implements TransactionServiceInterface{
 
     @Override
     @Transactional
-    public Transaction depositMoney(int accountId, Long amountDeposited) {
+    public boolean depositMoney(int accountId, Double amountDeposited) {
         Account account = accountService.getAccountById(accountId);
         if (account != null){
             account.setAccountBalance(account.getAccountBalance() + amountDeposited);
             accountRepository.save(account);
-            saveTransactionObject(account, amountDeposited);
-
-
+            saveTransactionObject(account, amountDeposited, TransactionType.DEPOSIT);
+            return true;
         }
-        return null;
-    }
-
-    private void saveTransactionObject(Account account, Long amount) {
-        Transaction transaction = new Transaction(TransactionType.DEPOSIT, amount, LocalDateTime.now(), account);
-        transactionRepository.save(transaction);
+        return false;
     }
 
     @Override
     @Transactional
-    public Transaction withdrawMoney(int accountId, Long amountWithdrawn) {
+    public boolean withdrawMoney(int accountId, Double amountWithdrawn) {
         Account account = accountService.getAccountById(accountId);
         if (account != null){
-            account.setAccountBalance(account.getAccountBalance() + amountWithdrawn);
-            accountRepository.save(account);
-            saveTransactionObject(account, amountWithdrawn);
+            if (account.getAccountBalance() - amountWithdrawn >= 0){
+                account.setAccountBalance(account.getAccountBalance() - amountWithdrawn);
+                accountRepository.save(account);
+                saveTransactionObject(account, amountWithdrawn, TransactionType.WITHDRAWAL);
+                return true;
+            }
         }
-        return null;
+        return false;
     }
 
     @Override
-    public Transaction transferMoney(int senderAccountId, int receiverAccountId, int amountTransferred) {
-        return null;
+    @Transactional
+    public boolean transferMoney(int senderAccountId, int receiverAccountId, Double amountTransferred) {
+        Account senderAccount = accountService.getAccountById(senderAccountId);
+        Account receiverAccount = accountService.getAccountById(receiverAccountId);
+        if(senderAccount != null && receiverAccount != null){
+            if (senderAccount.getAccountBalance() - amountTransferred >= 0){
+                senderAccount.setAccountBalance(senderAccount.getAccountBalance() - amountTransferred);
+                receiverAccount.setAccountBalance(receiverAccount.getAccountBalance()+ amountTransferred);
+                accountRepository.save(senderAccount);
+                accountRepository.save(receiverAccount);
+                saveTransactionObject(senderAccount, amountTransferred, TransactionType.TRANSFER);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override
@@ -80,5 +91,9 @@ public class TransactionService implements TransactionServiceInterface{
     @Override
     public Transaction deleteTransactionByTransactionId(int transactionId) {
         return null;
+    }
+    private void saveTransactionObject(Account account, Double amount, TransactionType transactionType) {
+        Transaction transaction = new Transaction(transactionType, amount, LocalDateTime.now(), account);
+        transactionRepository.save(transaction);
     }
 }

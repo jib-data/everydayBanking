@@ -15,7 +15,7 @@ public class Transaction {
     @Column(name = "transaction_type")
     private TransactionType transactionType;
     @Column(name = "transaction_amount")
-    private Long amount;
+    private Double amount;
     @Column(name = "transaction_date")
     private LocalDateTime transactionDate;
     @ManyToOne(optional = false)
@@ -26,7 +26,7 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(TransactionType transactionType, Long amount, LocalDateTime transactionDate, Account account) {
+    public Transaction(TransactionType transactionType, Double amount, LocalDateTime transactionDate, Account account) {
         this.transactionType = transactionType;
         this.amount = amount;
         this.transactionDate = transactionDate;
@@ -34,7 +34,7 @@ public class Transaction {
 
     }
 
-    public Transaction(int transactioId, TransactionType transactionType, Long amount, LocalDateTime transactionDate) {
+    public Transaction(int transactioId, TransactionType transactionType, Double amount, LocalDateTime transactionDate) {
         this.transactionId = transactioId;
         this.transactionType = transactionType;
         this.amount = amount;
@@ -57,11 +57,11 @@ public class Transaction {
         this.transactionType = transactionType;
     }
 
-    public Long getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Long amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

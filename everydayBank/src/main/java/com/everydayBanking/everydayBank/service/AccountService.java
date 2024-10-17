@@ -8,9 +8,10 @@ import com.everydayBanking.everydayBank.model.DeletedAccount;
 import com.everydayBanking.everydayBank.repository.AccountRepository;
 import com.everydayBanking.everydayBank.repository.CustomerRepository;
 import com.everydayBanking.everydayBank.repository.DeletedAccountRepository;
-import jakarta.transaction.Transactional;
+//import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
