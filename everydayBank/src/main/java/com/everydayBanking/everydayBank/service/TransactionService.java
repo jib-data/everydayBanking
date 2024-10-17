@@ -40,21 +40,24 @@ public class TransactionService implements TransactionServiceInterface{
             accountRepository.save(account);
             saveTransactionObject(account, amountDeposited);
 
+
         }
         return null;
     }
 
-    private void saveTransactionObject(Account account, Long amountDeposited) {
-        Transaction transaction = new Transaction(TransactionType.DEPOSIT, amountDeposited, LocalDateTime.now(), account);
+    private void saveTransactionObject(Account account, Long amount) {
+        Transaction transaction = new Transaction(TransactionType.DEPOSIT, amount, LocalDateTime.now(), account);
         transactionRepository.save(transaction);
     }
 
     @Override
-    public Transaction withdrawMoney(int accountId, int amountWithdrawn) {
+    @Transactional
+    public Transaction withdrawMoney(int accountId, Long amountWithdrawn) {
         Account account = accountService.getAccountById(accountId);
         if (account != null){
             account.setAccountBalance(account.getAccountBalance() + amountWithdrawn);
             accountRepository.save(account);
+            saveTransactionObject(account, amountWithdrawn);
         }
         return null;
     }

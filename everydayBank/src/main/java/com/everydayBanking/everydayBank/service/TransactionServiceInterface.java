@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface TransactionServiceInterface {
     Transaction depositMoney(int accountId, Long amountDeposited);
-    Transaction withdrawMoney(int accountId, int amountWithdrawn);
+    Transaction withdrawMoney(int accountId, Long amountWithdrawn);
     Transaction transferMoney(int senderAccountId,int receiverAccountId, int amountTransferred);
     Transaction getTransactionById(int transactionId);
     List<Transaction> getAllTransactionsByAccountId(int accountId);
