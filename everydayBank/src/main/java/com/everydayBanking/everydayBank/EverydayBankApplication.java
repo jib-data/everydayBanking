@@ -26,6 +26,7 @@ public class EverydayBankApplication {
 		AccountService accountService = (AccountService) context.getBean(AccountService.class);
 		TransactionService tServ = (TransactionService) context.getBean(TransactionService.class);
 		Customer newUser = context.getBean(Customer.class);
+		LoginObject loginObject = context.getBean(LoginObject.class);
 //		newUser.setFirstName("john");
 //		newUser.setLastname("doe");
 //		newUser.setUsername("bumbum");
@@ -54,6 +55,11 @@ public class EverydayBankApplication {
 		newUser3.setPhone("6099126364");
 		newUser3.setAddress("Kalabule");
 		newUser3.setCreation_date(LocalDateTime.now());
+		loginObject.setUsername("spiderman");
+		loginObject.setPassword("petpan");
+		DashboardObject dashboardObject = customerController.loginCustomer(loginObject);
+
+		System.out.println(dashboardObject);
 
 //		Customer newUser2 = context.getBean(Customer.class);
 //		newUser2.setFirstName("jo");
@@ -88,7 +94,7 @@ public class EverydayBankApplication {
 //		System.out.println(tServ.transferMoney(5,4, 200d));
 //		System.out.println(accountService.getAccountById(4));
 //		System.out.println(accountService.getAccountById(5));
-	     tServ.deleteTransactionByTransactionId(16);
+//	     tServ.deleteTransactionByTransactionId(15);
 
 
 //		System.out.println(cosService.signUp(newUser1));

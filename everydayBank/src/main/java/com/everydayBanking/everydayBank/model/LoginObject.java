@@ -1,5 +1,8 @@
 package com.everydayBanking.everydayBank.model;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class LoginObject {
     private String username;
     private String password;

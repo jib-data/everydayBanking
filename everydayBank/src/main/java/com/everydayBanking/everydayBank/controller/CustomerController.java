@@ -5,6 +5,7 @@ import com.everydayBanking.everydayBank.model.DashboardObject;
 import com.everydayBanking.everydayBank.model.LoginObject;
 import com.everydayBanking.everydayBank.service.AccountService;
 import com.everydayBanking.everydayBank.service.CustomerService;
+import com.everydayBanking.everydayBank.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class CustomerController implements CustomerControllerInterface{
     CustomerService customerService;
     AccountService accountService;
+    TransactionService transactionService;
 
     @Autowired
-    public CustomerController(CustomerService customerService, AccountService accountService){
+    public CustomerController(CustomerService customerService, AccountService accountService, TransactionService transactionService){
         this.customerService = customerService;
         this.accountService = accountService;
+        this.transactionService = transactionService;
     }
     @PostMapping("/signup")
     @Override
@@ -34,9 +37,13 @@ public class CustomerController implements CustomerControllerInterface{
          }
 
     }
-
+    @PostMapping("/login")
     @Override
     public DashboardObject loginCustomer(LoginObject loginObject) {
+        DashboardObject dashboardObject = customerService.login(loginObject);
+        if (dashboardObject != null){
+            return dashboardObject;
+        }
         return null;
     }
 }
