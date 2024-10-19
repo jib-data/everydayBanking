@@ -47,15 +47,15 @@ public class EverydayBankApplication {
 //		newUser1.setAddress("Kalabule");
 //		newUser1.setCreation_date(LocalDateTime.now());
 
-		Customer newUser3 = context.getBean(Customer.class);
-		newUser3.setFirstName("preter");
-		newUser3.setLastname("parker");
-		newUser3.setUsername("spiderman");
-		newUser3.setPassword("petpan");
-		newUser3.setEmail("spidermyass@gmail.com");
-		newUser3.setPhone("6099126364");
-		newUser3.setAddress("Kalabule");
-		newUser3.setCreation_date(LocalDateTime.now());
+//		Customer newUser3 = context.getBean(Customer.class);
+//		newUser3.setFirstName("preter");
+//		newUser3.setLastname("parker");
+//		newUser3.setUsername("spiderman");
+//		newUser3.setPassword("petpan");
+//		newUser3.setEmail("spidermyass@gmail.com");
+//		newUser3.setPhone("6099126364");
+//		newUser3.setAddress("Kalabule");
+//		newUser3.setCreation_date(LocalDateTime.now());
 
 
 //		------------------------------------------------Login Customer----------------------------------------------------------
@@ -111,15 +111,15 @@ public class EverydayBankApplication {
 
 //		---------------------------------------------------------------------------------------------------------------------------
 
-		Customer newUser2 = context.getBean(Customer.class);
-		newUser2.setFirstName("jo");
-		newUser2.setLastname("d");
-		newUser2.setUsername("jibhg4");
-		newUser2.setPassword("petpan");
-		newUser2.setEmail("jid4@gil.com");
-		newUser2.setPhone("6099126364");
-		newUser2.setAddress("thh dye jte");
-		newUser2.setCreation_date(LocalDateTime.now());
+//		Customer newUser2 = context.getBean(Customer.class);
+//		newUser2.setFirstName("jo");
+//		newUser2.setLastname("d");
+//		newUser2.setUsername("jibhg4");
+//		newUser2.setPassword("petpan");
+//		newUser2.setEmail("jid4@gil.com");
+//		newUser2.setPhone("6099126364");
+//		newUser2.setAddress("thh dye jte");
+//		newUser2.setCreation_date(LocalDateTime.now());
 //{
 //    "firstName": "jason",
 //    "lastname": " bourne",
@@ -147,7 +147,7 @@ public class EverydayBankApplication {
 //	     tServ.deleteTransactionByTransactionId(15);
 
 
-		System.out.println(cosService.signUp(newUser2));
+//		System.out.println(cosService.signUp(newUser2));
 //		LoginObject loginObject = new LoginObject("kyekyeku", "petpan");
 //		System.out.println(cosService.login(loginObject));
 
