@@ -5,8 +5,11 @@ import com.everydayBanking.everydayBank.model.Customer;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 public interface AccountControllerInterface {
-    Account createAccount(@RequestBody Customer customer);
-    Account updateAccount(@PathVariable int accountId);
-    Account deleteAccount(@PathVariable int accountId);
+    Account createAccount(int customerId);
+    Account updateAccount(int accountId, String type);
+    Account deleteAccount(int accountId);
+    List<Account> getAllAccounts(int customerId);
 }

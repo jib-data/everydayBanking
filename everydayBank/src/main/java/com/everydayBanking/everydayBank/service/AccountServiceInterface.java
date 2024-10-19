@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 public interface AccountServiceInterface {
-    Account createAccount(Customer customer);
+    Account createAccount(int customerId);
     Account getAccountById(int accountId);
     List<Account> getCustomerAccountsById(int customerId);
     Account deleteAccountById(int accountId);

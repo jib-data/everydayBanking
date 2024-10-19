@@ -22,18 +22,14 @@ public class Customer {
     @Column(name = "username")
     private String username;
     @Column(name = "password")
-    @JsonIgnore
     private String password;
     @Column(name = "email")
     private String email;
-    @JsonIgnore
     @Column(name = "address")
     private String address;
-    @JsonIgnore
     @Column(name = "phone_number")
     private String phone;
     private LocalDateTime creation_date;
-    @JsonIgnore
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Account> accounts = new ArrayList<>();
 
@@ -49,7 +45,6 @@ public class Customer {
         this.phone = phone;
         this.address = address;
         this.creation_date = creation_date;
-
     }
     public Customer(String firstName, String lastName, String username, String password, String email, String address, LocalDateTime creation_date, LocalDateTime deletion_date) {
         this.firstName = firstName;
@@ -153,8 +148,7 @@ public class Customer {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    public void addAccounts(Account account){
-        account.setCustomer(this);
+    public void setAccounts(Account account){
         this.accounts.add(account);
     }
 

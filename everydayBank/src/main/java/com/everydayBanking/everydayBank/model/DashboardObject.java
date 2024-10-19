@@ -8,7 +8,7 @@ public class DashboardObject {
     private String firstName;
     private String lastName;
     private String jwtToken;
-    private List<AccountDTO> customerAccounts;
+    private List<AccountDTO> customerAccounts = new ArrayList<>();
 
     public DashboardObject() {
     }

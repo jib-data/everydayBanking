@@ -3,26 +3,40 @@ package com.everydayBanking.everydayBank.controller;
 
 import com.everydayBanking.everydayBank.model.Account;
 import com.everydayBanking.everydayBank.model.Customer;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.everydayBanking.everydayBank.service.AccountService;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+import java.util.List;
+
+@RestController("/account")
 public class AccountController implements AccountControllerInterface{
+    private AccountService accountService;
+
+    public AccountController(AccountService accountService) {
+        this.accountService = accountService;
+    }
 
 
     @Override
-    public Account createAccount(@RequestBody Customer customer) {
-        return null;
+    @PostMapping("/create")
+    public Account createAccount(@PathVariable int customerId) {
+        return accountService.createAccount(customerId);
     }
 
     @Override
-    public Account updateAccount(@PathVariable int accountId) {
-        return null;
+    @PatchMapping("/update")
+    public Account updateAccount(@PathVariable int accountId, String type) {
+        return accountService.updateAccountByAccountId(accountId, type);
     }
 
     @Override
+    @DeleteMapping("/delete")
     public Account deleteAccount(@PathVariable int accountId) {
-        return null;
+        return accountService.deleteAccountById(accountId);
+    }
+    @Override
+    @GetMapping("/accounts")
+    public List<Account> getAllAccounts(int customerId){
+        return accountService.getCustomerAccountsById(customerId);
     }
 }

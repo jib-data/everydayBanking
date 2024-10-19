@@ -35,15 +35,12 @@ public class CustomerService implements CustomerServiceInterface{
     @Override
     @Transactional
     public DashboardObject signUp( Customer newUser){
-        System.out.println("Method is being called");
         Customer existingCustomer = customerRepository.findByUsername(newUser.getUsername());
-        System.out.println(existingCustomer + " exists");
         if (existingCustomer == null){
-            System.out.println("Existing user doesn't exist");
             Customer createdCustomer = createCustomer(newUser);
             Customer createdCustomerSaved = customerRepository.save(createdCustomer);
-            Account createdAccount = accountService.createAccount(createdCustomerSaved);
-//            System.out.println(createdAccount);
+            Account createdAccount = accountService.createAccount(createdCustomerSaved.getCustomerId());
+            createdCustomer.setAccounts(createdAccount);
             String token = jwtUtils.generateJwtToken(createdCustomerSaved.getUsername());
             DashboardObject dashboardObject = setDashBoardDetails(createdCustomerSaved, token);
             return dashboardObject;
@@ -62,7 +59,6 @@ public class CustomerService implements CustomerServiceInterface{
             SecurityContextHolder.getContext().setAuthentication(authentication);
             CustomerPrincipal customerDetails = (CustomerPrincipal) authentication.getPrincipal();
             String token = jwtUtils.generateJwtToken(customerDetails.getUsername());
-//          List<Account> accounts = accountService.getCustomerAccountsById(customerDetails.getCustomerId());
             DashboardObject dashboardObject = setDashBoardDetails(customerDetails, token);
             return dashboardObject;
         } catch (AuthenticationException e){

@@ -1,10 +1,9 @@
 package com.everydayBanking.everydayBank;
 
+import com.everydayBanking.everydayBank.controller.AccountController;
 import com.everydayBanking.everydayBank.controller.CustomerController;
-import com.everydayBanking.everydayBank.model.Account;
-import com.everydayBanking.everydayBank.model.Customer;
-import com.everydayBanking.everydayBank.model.DashboardObject;
-import com.everydayBanking.everydayBank.model.LoginObject;
+import com.everydayBanking.everydayBank.controller.TransactionController;
+import com.everydayBanking.everydayBank.model.*;
 import com.everydayBanking.everydayBank.service.AccountService;
 import com.everydayBanking.everydayBank.service.CustomerService;
 import com.everydayBanking.everydayBank.service.TransactionService;
@@ -27,6 +26,8 @@ public class EverydayBankApplication {
 		TransactionService tServ = (TransactionService) context.getBean(TransactionService.class);
 		Customer newUser = context.getBean(Customer.class);
 		LoginObject loginObject = context.getBean(LoginObject.class);
+		AccountController accControl = context.getBean(AccountController.class);
+		TransactionController transControl = context.getBean(TransactionController.class);
 //		newUser.setFirstName("john");
 //		newUser.setLastname("doe");
 //		newUser.setUsername("bumbum");
@@ -55,21 +56,70 @@ public class EverydayBankApplication {
 		newUser3.setPhone("6099126364");
 		newUser3.setAddress("Kalabule");
 		newUser3.setCreation_date(LocalDateTime.now());
-		loginObject.setUsername("spiderman");
-		loginObject.setPassword("petpan");
-		DashboardObject dashboardObject = customerController.loginCustomer(loginObject);
 
-		System.out.println(dashboardObject);
 
-//		Customer newUser2 = context.getBean(Customer.class);
-//		newUser2.setFirstName("jo");
-//		newUser2.setLastname("d");
-//		newUser2.setUsername("jibhg");
-//		newUser2.setPassword("petpan");
-//		newUser2.setEmail("jid@gil.com");
-//		newUser2.setPhone("6099126364");
-//		newUser2.setAddress("thh dye jte");
-//		newUser2.setCreation_date(LocalDateTime.now());
+//		------------------------------------------------Login Customer----------------------------------------------------------
+//		loginObject.setUsername("spiderman");
+//		loginObject.setPassword("petpan");
+//		DashboardObject dashboardObject = customerController.loginCustomer(loginObject);
+//
+//		System.out.println(dashboardObject);
+
+//		--------------------------------------------- Creating new account for customer----------------------------------------
+//		Account newAccount = accControl.createAccount(9);
+//		System.out.println(newAccount);
+
+//--------------------------------------------------------------------------------------------------------------------------------
+
+// -----------------------------------------------------Updating an Account ------------------------------------------------------
+//		Account upAccount = accControl.updateAccount(11, "checking");
+//		System.out.println(upAccount);
+//		--------------------------------------------------------------------------------------------------------------------------
+
+//		------------------------------------------------Delete Account------------------------------------------------------------
+//		Account account = accControl.deleteAccount(8);
+//		System.out.println(account);
+//		--------------------------------------------------------------------------------------------------------------------------
+//		--------------------------------------------------- Get All Accounts of a Customer----------------------------------------
+//		List<Account> accounts = accControl.getAllAccounts(9);
+//		System.out.println(accounts);
+//		--------------------------------------------------------------------------------------------------------------------------
+
+//		----------------------------------------------------Transactions----------------------------------------------------------
+//		----------------------------------------------------Deposit---------------------------------------------------------------
+//		boolean transaction = transControl.depositMoney(7, 7000d);
+//		System.out.println(transaction);
+
+
+//		---------------------------------------------------------------------------------------------------------------------------
+//		------------------------------------------------------ Withdrawal----------------------------------------------------------
+//		boolean transaction = transControl.withdrawMoney(7, 89d);
+//		System.out.println(transaction);
+
+//		---------------------------------------------------------------------------------------------------------------------------
+//		--------------------------------------------------------- Transfer Money --------------------------------------------------
+//		boolean transaction = transControl.transferMoney(7, 5, 100d);
+//		System.out.println(transaction);
+
+//		--------------------------------------------------------GetAllTransactionsById---------------------------------------------
+//		List<Transaction> transactions = transControl.allTransactionsGivenAccountId(7);
+//		System.out.println(transactions);
+
+//		---------------------------------------------------------------------------------------------------------------------------
+//		---------------------------------------------------------DeleteTransactionByID---------------------------------------------
+//		transControl.deleteTransactionGivenTransactionId(1);
+
+//		---------------------------------------------------------------------------------------------------------------------------
+
+		Customer newUser2 = context.getBean(Customer.class);
+		newUser2.setFirstName("jo");
+		newUser2.setLastname("d");
+		newUser2.setUsername("jibhg4");
+		newUser2.setPassword("petpan");
+		newUser2.setEmail("jid4@gil.com");
+		newUser2.setPhone("6099126364");
+		newUser2.setAddress("thh dye jte");
+		newUser2.setCreation_date(LocalDateTime.now());
 //{
 //    "firstName": "jason",
 //    "lastname": " bourne",
@@ -97,7 +147,7 @@ public class EverydayBankApplication {
 //	     tServ.deleteTransactionByTransactionId(15);
 
 
-//		System.out.println(cosService.signUp(newUser1));
+		System.out.println(cosService.signUp(newUser2));
 //		LoginObject loginObject = new LoginObject("kyekyeku", "petpan");
 //		System.out.println(cosService.login(loginObject));
 

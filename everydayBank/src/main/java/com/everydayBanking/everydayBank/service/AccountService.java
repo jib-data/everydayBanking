@@ -41,14 +41,16 @@ public class AccountService implements AccountServiceInterface {
 
 
     @Override
-    public Account createAccount(Customer customer) {
+    public Account createAccount(int customerId) {
+        Customer customer = customerRepository.findById(customerId).get();
         String accountNumber = createAccountNumber();
         Account newAccount = new Account();
-//        newAccount.setCustomer(customer);
+        newAccount.setCustomer(customer);
         newAccount.setAccountNumber(accountNumber);
         newAccount.setAccountBalance(0.0);
         newAccount.setCreation(LocalDateTime.now());
-        customer.addAccounts(newAccount);
+        accountRepository.save(newAccount);
+//        customer.addAccounts(newAccount);
         return newAccount;
     }
 
@@ -72,21 +74,18 @@ public class AccountService implements AccountServiceInterface {
         Optional<Account> accountOPT = accountRepository.findById(accountId);
         if(accountOPT.isPresent()){
             Account account = accountOPT.get();
-            System.out.println(account.getAccountId());
             Customer customer = account.getCustomer();
+            customer.getAccounts().remove(account);
             DeletedAccount deletedAccount = setDeletedObject(customer, account);
             deletedAccountRepository.save(deletedAccount);
-            if (customer.getAccounts().size() == 1){
-//                accountRepository.deleteById(deletedAccount.getAccountId());
+            if (customer.getAccounts().isEmpty()){
                 customerRepository.deleteById(customer.getCustomerId());
             } else {
                 accountRepository.deleteById(account.getAccountId());
             }
-
             return account;
         }
         return null;
-
     }
 
     private DeletedAccount setDeletedObject(Customer customer, Account account) {
@@ -103,10 +102,12 @@ public class AccountService implements AccountServiceInterface {
 
     @Override
     public Account updateAccountByAccountId(int accountId, String type) {
-        Optional<Account> updatedAccount = accountRepository.findById(accountId);
-        if (updatedAccount.isPresent()){
-            updatedAccount.get().setAccountType(type);
-            return updatedAccount.get();
+        Optional<Account> account = accountRepository.findById(accountId);
+        if (account.isPresent()){
+              Account updatedAccount = account.get();
+              updatedAccount.setAccountType(type);
+              accountRepository.save(updatedAccount);
+            return updatedAccount;
         }
         return null;
     }

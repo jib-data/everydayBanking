@@ -1,6 +1,7 @@
 package com.everydayBanking.everydayBank.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

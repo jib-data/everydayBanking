@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,9 +29,8 @@ public class Account {
     @ManyToOne(optional = false)
     @JoinColumn(name="customer_id", nullable = false)
     Customer customer;
-
     @OneToMany(mappedBy = "account")
-    private List<Transaction> transactions;
+    private List<Transaction> transactions = new ArrayList<>();
 
     public Account() {
     }

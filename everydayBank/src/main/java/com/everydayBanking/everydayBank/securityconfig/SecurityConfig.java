@@ -36,7 +36,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityChain(HttpSecurity http) throws Exception {
 
         http.csrf(customizer -> customizer.disable())
-                .authorizeHttpRequests(request -> request.requestMatchers("/signup").permitAll()
+                .authorizeHttpRequests(request -> request.requestMatchers("/signup", "login").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 //                Adding the instruction to do JWT check before Username password authentication
